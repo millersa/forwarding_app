@@ -1,0 +1,88 @@
+<%= form_for @user, :html => {:class => "form-horizontal"} do |f| %>
+	      	 <%= render 'shared/error_messages', object: f.object %>
+	        <fieldset>
+	          <legend><%= @legend %></legend>
+	          <div class="control-group">
+	             <%= f.label :username, "Логин", :class => "control-label" %>
+	            <div class="controls">
+	               <%= f.text_field :username, :class => "span3", :placeholder => "IvanovAP" %>
+	            </div>
+	          </div>
+	          <div class="control-group">
+	             <%= f.label :firstname, "Имя", :class => "control-label" %>
+	            <div class="controls">
+	               <%= f.text_field :firstname, :class => "span3", :placeholder => "Александр" %>
+	            </div>
+	          </div>
+	          <div class="control-group">
+	             <%= f.label :lastname, "Фамилия", :class => "control-label" %>
+	            <div class="controls">
+	               <%= f.text_field :lastname, :class => "span3", :placeholder => "Иванов" %>
+	            </div>
+	          </div>
+	          <div class="control-group">
+	             <%= f.label :otchestvo, "Отчество", :class => "control-label" %>
+	            <div class="controls">
+	               <%= f.text_field :otchestvo, :class => "span3", :placeholder => "Петрович" %>
+	            </div>
+	          </div>
+	          <div class="control-group">
+	             <%= f.label :doljnost, "Должность", :class => "control-label" %>
+	            <div class="controls">
+	               <%= f.text_field :doljnost, :class => "span3", :placeholder => "Диспетчер" %>
+	            </div>
+	          </div>
+	          <div class="control-group">
+	             <%= f.label :phone, "Номер телефона", :class => "control-label" %>
+	            <div class="controls">
+	               <%= f.text_field :phone, :class => "span3", :placeholder => "89080523267" %>
+	            </div>
+	          </div>
+	           <div class="control-group">
+	             <%= f.label :sex, "Пол", :class => "control-label" %>
+	            <div class="controls">
+	               <%= f.select( "sex", { "Женский" => "женский", "Мужской" => "мужской"}, :class => "span3") %>
+	            </div>
+	          </div>
+	          <div class="control-group">
+	             <%= f.label :datebirth, "Дата рождения", :class => "control-label" %>
+	            <div class="controls">
+	               <%= f.text_field :datebirth, :class => "span3", :placeholder => "05/12/1980" %>
+	            </div>
+	          </div>
+	          <div class="control-group">
+	             <%= f.label :datework, "Дата приема на работу", :class => "control-label" %>
+	            <div class="controls">
+	               <%= f.text_field :datework, :class => "span3", :placeholder => "05/12/2012" %>
+	            </div>
+	          </div>
+	          <div class="control-group">
+	             <%= f.label :passport, "Паспортные данные", :class => "control-label" %>
+	            <div class="controls form-inline">
+	               <%= f.text_field :seriy, :class => "span1", :placeholder => "Серия" %>
+	   
+	               <%= f.text_field :nomer, :class => "span2", :placeholder => "Номер" %>
+	            </div><br/>
+	            <div class="controls">
+	               <%= f.text_field :vidan, :class => "span4", :placeholder => "Кем выдан" %>
+	            </div>
+	          </div>
+	          <div class="control-group">
+	             <%= f.label :password, "Пароль", :class => "control-label" %>
+	            <div class="controls">
+	               <%= f.password_field :password, :class => "span3" %>
+	            </div>
+	          </div>
+	          <div class="control-group">
+	             <%= f.label :password_confirmation, "Повторите пароль", :class => "control-label" %>
+	            <div class="controls">
+	               <%= f.password_field :password_confirmation, :class => "span3" %>
+	            </div>
+	          </div>
+
+	          <div class="form-actions">
+				 <%= f.submit "Сохранить", :class => "btn btn-primary" %>
+				 <%= link_to 'Назад', users_path, :class => "btn" %> 
+	          </div>
+	        </fieldset>
+	     <% end %>

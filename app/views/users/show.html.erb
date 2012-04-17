@@ -1,0 +1,59 @@
+
+<!--<div class="alert alert-success">
+  <a class="close" data-dismiss="alert">×</a>
+  <%= notice %>   
+</div>-->
+
+<p>
+  <b>Логин:</b>
+  <%= @user.username %>
+</p>
+ 
+<p>
+  <b>Имя:</b>
+  <%= @user.firstname %>
+</p>
+ 
+<p>
+  <b>Фамилия:</b>
+  <%= @user.lastname %>
+</p>
+
+<p>
+  <b>Отчество:</b>
+  <%= @user.otchestvo %>
+</p>
+
+<p>
+  <b>Должность:</b>
+  <%= @user.doljnost %>
+</p>
+
+<p>
+  <b>Номер телефона:</b>
+  <%= @user.phone %>
+</p>
+
+<p>
+  <b>Дата рождения:</b>
+  <%= @user.datebirth %>
+</p>
+
+<p>
+  <b>Дата приема:</b>
+  <%= @user.datework %>
+</p>
+
+<p>
+  <b>Паспортные данные:</b>
+   <%= @user.seriy %>    <%= @user.nomer %>
+</p>
+
+<p>
+  <b>Кем выдан:</b>
+  <%= @user.vidan %>
+</p>
+ 
+ 
+<%= link_to 'Редактировать', edit_user_path(@user) %> |
+<%= link_to 'Назад', users_path %>

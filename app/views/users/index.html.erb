@@ -1,0 +1,48 @@
+<h3>Список сотрудников</h3>
+
+<%= will_paginate %>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Логин</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Отчество</th>
+        <th>Должность</th>
+        <th>Пол</th>
+        <th>Телефон</th>
+        <th>Дата рождения</th>
+        <th>Дата приема</th>
+        <th>Паспортные данные</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+      <tr>
+        <td><%= user.username %></td>
+        <td><%= user.firstname %></td>
+        <td><%= user.lastname %></td>
+        <td><%= user.otchestvo %></td>
+        <td><%= user.doljnost %></td>
+        <td><%= user.sex %></td>
+        <td><%= user.phone %></td>
+        <td><%= user.datebirth %></td>
+        <td><%= user.datework %></td>
+        <td><%= user.seriy %> <%= user.nomer %><br/><%= user.vidan %></td>
+        <td><%= link_to 'Посмотреть', user %></td>
+        <td><%= link_to 'Редактировать', edit_user_path(user) %></td>
+        <td><%= link_to 'Удалить', user, :confirm => 'Вы уверены?',
+                                     :method => :delete %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <br />
+ 
+<%= link_to 'Добавить сотрудника', new_user_path %>
+
+<%= will_paginate %>

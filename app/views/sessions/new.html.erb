@@ -1,0 +1,27 @@
+      <!-- форма авторизация -->
+      <div class="row">
+      	<div class="span4 offset4">
+	      <%= form_for(:session, :url => sessions_path, :html => {:class => "form-horizontal"}) do |f| %>
+	        <fieldset>
+	          <legend>Авторизация</legend>
+	          <div class="control-group">
+	             <%= f.label :username, "Логин", :class => "control-label" %>
+	            <div class="controls">
+	               <%= f.text_field :username, :class => "span3", :placeholder => "IvanovAP" %>
+	            </div>
+	          </div>
+	          <div class="control-group">
+	             <%= f.label :password, "Пароль", :class => "control-label" %>
+	            <div class="controls">
+	               <%= f.password_field :password, :class => "span3" %>
+	            </div>
+	          </div>
+	          <div class="form-actions">
+				 <%= f.submit "Войти", :class => "btn btn-primary" %>
+	          </div>
+	        </fieldset>
+		  <% end %>
+	   </div>
+	  </div>
+
+      <!-- конец формы авторизации -->
