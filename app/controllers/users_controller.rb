@@ -26,7 +26,7 @@ end
 
   def index #Вывод всех сотрудников
   	@title = "Список сотрудников"
-    @users = User.paginate(page: params[:page])
+    @users = User.order("datework").page(params[:page]).per_page(7)
     respond_to do |format|
     format.html  # index.html.erb
     format.json  { render :json => @users }
@@ -48,7 +48,6 @@ end
     format.html { redirect_to users_url }
     format.json { head :no_content }
   end
-  	
   end
 
 def update  #Обновление

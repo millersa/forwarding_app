@@ -1,0 +1,52 @@
+<h3>Список водителей</h3>
+
+<%= will_paginate %>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+    <th>Имя</th>
+    <th>Фамилия</th>
+    <th>Отчество</th>
+    <th>Телефон</th>
+    <th>Контакты</th>
+    <th>Марка</th>
+    <th>Тип кузова</th>
+    <th>Растентовка</th>
+    <th>Вес</th>
+    <th>Объем</th>
+    <th>Гос № а/м</th>
+    <th>Гос № п/п</th>
+    <th>Паспортные данные</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @drivers.each do |driver| %>
+  <tr>
+    <td><%= driver.fname %></td>
+    <td><%= driver.lname %></td>
+    <td><%= driver.oname %></td>
+    <td><%= driver.phone %></td>
+    <td><%= driver.contacts %></td>
+    <td><%= driver.marka %></td>
+    <td><%= driver.tipkuzova %></td>
+    <td><%= driver.rastentovka %></td>
+    <td><%= driver.ves %></td>
+    <td><%= driver.objem %></td>
+    <td><%= driver.gosnomer %></td>
+    <td><%= driver.gosnomerp %></td>
+    <td><%= driver.seriy %> <%= driver.nomerp %><br/><%= driver.kemvidan %><br/><%= driver.kogdavidan %></td>
+    <td><%= link_to 'Показать', driver %></td>
+    <td><%= link_to 'Редактировать', edit_driver_path(driver) %></td>
+    <td><%= link_to 'Удалить', driver, confirm: 'Вы уверены?', method: :delete %></td>
+  </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <br />
+ 
+<%= link_to 'Добавить водителя', new_driver_path, :class => "btn btn-success" %>
+
+<%= will_paginate %>

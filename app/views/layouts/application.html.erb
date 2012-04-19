@@ -22,10 +22,10 @@
            <%= link_to "ООО АТ \"Транс ДАК\"", root_path, class: "brand" %>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Главная</a></li>
+              <li><%= link_to "Главная", root_path %></li>
               <% if signed_in? %>
-              <li><a href="#about">Добавить компанию</a></li>
-              <li><a href="#contact">Добавить водителя</a></li>
+              <li> <%= link_to 'Компании', companies_path %> </li>
+              <li><%= link_to "Транспорт", drivers_path %></li>
               <li><%= link_to 'Пользователи', users_path %></li>
               <% end %>
             </ul>         
@@ -57,6 +57,7 @@
             <%= value %></div>
         <% end %>
 <%= yield %>
+<%= render 'shared/footer' %>
 	   </div> <!-- /container -->
      <%= debug(params) if Rails.env.development? %>
 </body>

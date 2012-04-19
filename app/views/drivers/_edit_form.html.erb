@@ -1,0 +1,102 @@
+<%= form_for @driver, :html => {:class => "form-horizontal"} do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+    <fieldset>
+      <legend>Редактирование водителя</legend>
+  <div class="control-group">
+    <%= f.label :fname, "Имя", :class => "control-label" %>
+    <div class="controls">
+    <%= f.text_field :fname, :class => "span3", :placeholder => "Алексей" %>
+  </div></div>
+
+  <div class="control-group">
+    <%= f.label :lname, "Фамилия", :class => "control-label" %>
+    <div class="controls">
+    <%= f.text_field :lname, :class => "span3", :placeholder => "Иванов" %>
+  </div></div>
+
+  <div class="control-group">
+    <%= f.label :oname, "Отчество", :class => "control-label" %>
+    <div class="controls">
+    <%= f.text_field :oname, :class => "span3", :placeholder => "Васильевич" %>
+  </div></div>
+
+  <div class="control-group">
+    <%= f.label :phone, "Телефон", :class => "control-label" %>
+    <div class="controls">
+    <%= f.text_field :phone, :class => "span3", :placeholder => "89124583612" %>
+  </div></div>
+
+  <div class="control-group">
+    <%= f.label :contacts, "Контакты", :class => "control-label" %>
+    <div class="controls">
+    <%= f.text_field :contacts, :class => "span3", :placeholder => "icq: 254-222-111" %>
+  </div></div>
+
+  <div class="control-group">
+    <%= f.label :marka, "Марка", :class => "control-label" %>
+    <div class="controls">
+    <%= f.select(:marka, {"борт" => "борт", "тент" => "тент"}) %>
+  </div></div>
+
+    <div class="control-group">
+      <%= f.label :tipkuzova, "Тип кузова", :class => "control-label" %>
+      <div class="controls">
+      <%= f.select(:tipkuzova, { "борт" => "борт", "тент" => "тент"})  %>
+    </div></div>
+
+    <div class="control-group">
+      <%= f.label :rastentovka, "Растентовка", :class => "control-label" %>
+      <div class="controls">
+      <%= f.select(:rastentovka, { "борт" => "борт", "тент" => "тент"}) %>
+    </div></div>
+    <div class="control-group">
+      <%= f.label :ves, "Вес", :class => "control-label" %>
+      <div class="controls">
+      <%= f.text_field :ves, :class => "span1", :placeholder => "20" %>
+   </div></div>
+
+  <div class="control-group">
+    <%= f.label :objem, "Объем", :class => "control-label" %>
+    <div class="controls">
+    <%= f.text_field :objem, :class => "span1", :placeholder => "80" %>
+  </div></div>
+
+  <div class="control-group">
+    <%= f.label :gosnomer, "Гос № а/м", :class => "control-label" %>
+    <div class="controls">
+    <%= f.text_field :gosnomer, :class => "span3", :placeholder => "м834на/174" %>
+  </div></div>
+
+  <div class="control-group">
+    <%= f.label :gosnomerp, "Гос № п/п", :class => "control-label" %>
+    <div class="controls">
+    <%= f.text_field :gosnomerp, :class => "span3", :placeholder => "вк8287/74" %>
+  </div></div>
+
+  <div class="control-group">
+    <%= f.label :passport, "Паспортные данные", :class => "control-label" %>
+              <div class="controls form-inline">
+    <%= f.text_field :seriy, :class => "span1", :placeholder => "Серия" %>
+    <%= f.text_field :nomerp, :class => "span2", :placeholder => "Номер"  %>
+     </div>
+   </div>
+
+  <div class="control-group">
+    <%= f.label :kemvidan, "Кем выдан", :class => "control-label" %>
+    <div class="controls">
+    <%= f.text_field :kemvidan, :class => "span4", :placeholder => "Кем выдан"%>
+  </div></div>
+
+  <div class="control-group">
+    <%= f.label :kogdavidan, "Когда выдан", :class => "control-label" %>
+    <div class="controls">
+    <%= f.text_field :kogdavidan, :class => "span4", :placeholder => "Когда выдан" %>
+  </div></div>
+
+  <div class="form-actions">
+     <%= f.submit "Сохранить", :class => "btn btn-primary" %>
+     <%= link_to 'Назад', drivers_path, :class => "btn" %> 
+     <%= link_to 'Показать', @driver, :class => "btn btn-info" %>
+    </div>
+</fieldset>
+<% end %>

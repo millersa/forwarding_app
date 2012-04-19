@@ -1,0 +1,24 @@
+
+<p>
+  <b>Организация:</b>
+  <%= @company.organization %>
+</p>
+
+<p>
+  <b>Контактное лицо:</b>
+  <%= @company.contlico %>
+</p>
+
+<p>
+  <b>Телефон:</b>
+  <%= @company.phone %>
+</p>
+
+<p>
+  <b>Груз:</b>
+  <%= @company.gruz %>
+</p>
+
+
+<%= link_to 'Редактировать', edit_company_path(@company) %> |
+<%= link_to 'Назад', companies_path %>

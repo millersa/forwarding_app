@@ -1,6 +1,6 @@
 <h3>Список сотрудников</h3>
 
-<%= will_paginate %>
+<%= will_paginate @users, previous_label: h("<"), next_label: h(">") %>
 
   <table class="table table-bordered table-striped">
     <thead>
@@ -43,6 +43,6 @@
   </table>
   <br />
  
-<%= link_to 'Добавить сотрудника', new_user_path %>
+<%= link_to 'Добавить сотрудника', new_user_path, :class => "btn btn-success" %>
 
-<%= will_paginate %>
+<%= will_paginate @users, previous_label: h("<"), next_label: h(">") %>

@@ -1,0 +1,81 @@
+
+
+<p>
+  <b>Имя:</b>
+  <%= @driver.fname %>
+</p>
+
+<p>
+  <b>Фамилия:</b>
+  <%= @driver.lname %>
+</p>
+
+<p>
+  <b>Отчество:</b>
+  <%= @driver.oname %>
+</p>
+
+<p>
+  <b>Телефон:</b>
+  <%= @driver.phone %>
+</p>
+
+<p>
+  <b>Контакты:</b>
+  <%= @driver.contacts %>
+</p>
+
+<p>
+  <b>Марка:</b>
+  <%= @driver.marka %>
+</p>
+
+<p>
+  <b>Вес:</b>
+  <%= @driver.ves %>
+</p>
+
+<p>
+  <b>Объем:</b>
+  <%= @driver.objem %>
+</p>
+
+<p>
+  <b>Гос № а/м:</b>
+  <%= @driver.gosnomer %>
+</p>
+
+<p>
+  <b>Гос № п/п:</b>
+  <%= @driver.gosnomerp %>
+</p>
+
+<p>
+  <b>Паспортные данные:</b>
+  <%= @driver.seriy %>   <%= @driver.nomerp %>
+</p>
+
+
+<p>
+  <b>Кем выдан:</b>
+  <%= @driver.kemvidan %>
+</p>
+
+<p>
+  <b>Когда выдан:</b>
+  <%= @driver.kogdavidan %>
+</p>
+
+<p>
+  <b>Тип кузова:</b>
+  <%= @driver.tipkuzova %>
+</p>
+
+<p>
+  <b>Растентовка:</b>
+  <%= @driver.rastentovka %>
+</p>
+
+
+<%= link_to 'Редактировать', edit_driver_path(@driver) %> |
+<%= link_to 'Назад', drivers_path %>

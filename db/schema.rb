@@ -11,7 +11,37 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120417153140) do
+ActiveRecord::Schema.define(:version => 20120418115725) do
+
+  create_table "companies", :force => true do |t|
+    t.string   "organization"
+    t.string   "contlico"
+    t.string   "phone"
+    t.text     "gruz"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "drivers", :force => true do |t|
+    t.string   "fname"
+    t.string   "lname"
+    t.string   "oname"
+    t.string   "phone"
+    t.string   "contacts"
+    t.string   "marka"
+    t.integer  "ves"
+    t.integer  "objem"
+    t.string   "gosnomerp"
+    t.string   "gosnomer"
+    t.integer  "seriy"
+    t.integer  "nomerp"
+    t.string   "kemvidan"
+    t.string   "kogdavidan"
+    t.string   "tipkuzova"
+    t.string   "rastentovka"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "username"

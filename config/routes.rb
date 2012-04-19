@@ -1,6 +1,9 @@
 ForwardingApp::Application.routes.draw do
 
-  get "sessions/new"
+  resources :drivers
+
+  resources :companies
+
 
   root :to => 'main#index'
   resources :main

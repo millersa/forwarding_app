@@ -1,0 +1,37 @@
+<%= form_for @company, :html => {:class => "form-horizontal"} do |f| %>
+   <%= render 'shared/error_messages', object: f.object %>
+   <fieldset>
+        <legend>Редактирование компании</legend>
+         <div class="control-group">
+              <%= f.label :organization, "Организация", :class => "control-label" %>
+              <div class="controls">
+              <%= f.text_field :organization, :class => "span3" %>
+              </div>
+            </div>
+              <div class="control-group">
+              <%= f.label :contlico, "Контактное лицо", :class => "control-label" %>
+              <div class="controls">
+              <%= f.text_field :contlico, :class => "span3" %>
+              </div>
+            </div>
+              <div class="control-group">
+              <%= f.label :phone, "Телефон", :class => "control-label" %>
+              <div class="controls">
+              <%= f.text_field :phone, :class => "span3" %>
+              </div>
+            </div>
+
+              <div class="control-group">
+              <%= f.label :gruz, "Груз", :class => "control-label" %>
+              <div class="controls">
+              <%= f.text_area :gruz, :class => "span3", :rows => "4" %>
+              </div>
+            </div>
+
+            <div class="form-actions">
+         <%= f.submit "Сохранить", :class => "btn btn-primary" %>
+         <%= link_to 'Назад', companies_path, :class => "btn" %> 
+          <%= link_to 'Показать', @company, :class => "btn btn-info" %>
+            </div>
+          </fieldset>
+<% end %>

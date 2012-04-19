@@ -1,0 +1,36 @@
+
+<h3>Список компаний</h3>
+
+<%= will_paginate %>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Организация</th>
+        <th>Контактное лицо</th>
+        <th>Телефон</th>
+        <th>Груз</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @companies.each do |company| %>
+        <tr>
+          <td><%= company.organization %></td>
+          <td><%= company.contlico %></td>
+          <td><%= company.phone %></td>
+          <td><%= company.gruz %></td>
+          <td><%= link_to 'Посмотреть', company %></td>
+          <td><%= link_to 'Редактировать', edit_company_path(company) %></td>
+          <td><%= link_to 'Удалить', company, confirm: 'Вы уверены?', method: :delete %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <br />
+ 
+<%= link_to 'Добавить компанию', new_company_path, :class => "btn btn-success" %>
+
+<%= will_paginate %>
