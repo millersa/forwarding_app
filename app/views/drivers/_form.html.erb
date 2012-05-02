@@ -33,16 +33,26 @@
   </div></div>
 
   <div class="control-group">
-    <%= f.label :marka, "Марка", :class => "control-label" %>
+    <%= f.label :marka, "Тип кузова(Марка)", :class => "control-label" %>
     <div class="controls">
-    <%= f.select(:marka, {"борт" => "борт", "тент" => "тент"}) %>
+    <%= f.collection_select(:marka_id, @marka_select, :id, :name, :prompt => "Выберите марку") %>
+      </div></div>
+<div class="control-group">
+  <%= f.label :tipkuzova, "Тип кузова", :class => "control-label" %>
+   <div class="controls">
+          <%= f.radio_button :tipkuzova, '1' %> 
+           <%= label :tipkuzova_pp, 'полуприцеп', :class => "radio inline" %>
+           <%= f.radio_button :tipkuzova, '2', :checked => true %> 
+           <%= label :tipkuzova_gruzovik, 'грузовик', :class => "radio inline" %>
+           <%= f.radio_button :tipkuzova, '3' %> 
+           <%= label :tipkuzova_scepka, 'сцепка', :class => "radio inline" %>
   </div></div>
 
-    <div class="control-group">
+    <!--<div class="control-group">
       <%= f.label :tipkuzova, "Тип кузова", :class => "control-label" %>
       <div class="controls">
       <%= f.select(:tipkuzova, { "борт" => "борт", "тент" => "тент"})  %>
-    </div></div>
+    </div></div>-->
 
     <div class="control-group">
       <%= f.label :rastentovka, "Растентовка", :class => "control-label" %>
@@ -95,6 +105,7 @@
 
   <div class="form-actions">
      <%= f.submit "Сохранить", :class => "btn btn-primary" %>
+     <%= f.submit "Сохранить и показать", :class => "btn btn-primary" %>
      <%= link_to 'Назад', drivers_path, :class => "btn" %> 
     </div>
 </fieldset>

@@ -24,6 +24,10 @@ class User < ActiveRecord::Base
 
    before_save :create_remember_token
 
+   has_many :companies
+   has_many :tenders
+   
+
    private
 
     def create_remember_token

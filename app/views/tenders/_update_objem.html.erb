@@ -1,0 +1,11 @@
+  <% if !@update_objem.blank? %>
+         <%= collection_select :filter, :objem, @update_objem, :id, :objem, :prompt => 'Выберите компанию' %>
+    <% else %>
+     <script type="text/javascript">
+     	$('#update_objem_id').html("<select id=netdate><option></option></select>");
+     	$('#netdate').attr("disabled", "disable");
+     	$('#filter_marka').attr("disabled", "disable");
+     	$('#filter_marka').empty();
+     </script>
+    <% end %>
+

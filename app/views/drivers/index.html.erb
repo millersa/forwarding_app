@@ -30,8 +30,29 @@
     <td><%= driver.oname %></td>
     <td><%= driver.phone %></td>
     <td><%= driver.contacts %></td>
-    <td><%= driver.marka %></td>
-    <td><%= driver.tipkuzova %></td>
+    <td><%= driver.marka_id %>
+       
+         <% if driver.marka_id == 1 %>
+  <%= driver.marka_id = "тентованный" %>
+            <% end %>
+     <% if driver.marka_id == 5 %>
+     <%= driver.marka_id = "реф" %>
+   <% else %>
+   <%= driver.marka_id = "нет" %>
+    <% end %>
+
+    </td>
+    <td>
+         <% if driver.tipkuzova == '1' %>
+             <%= driver.tipkuzova = "попуприцеп" %>
+         <% end %>
+         <% if driver.tipkuzova == '2' %>
+             <%= driver.tipkuzova = "грузовик" %>
+         <% end %>
+         <% if driver.tipkuzova == '3' %>
+             <%= driver.tipkuzova = "сцепка" %>
+         <% end %>
+    </td>
     <td><%= driver.rastentovka %></td>
     <td><%= driver.ves %></td>
     <td><%= driver.objem %></td>

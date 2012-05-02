@@ -10,6 +10,7 @@ gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.5'
 gem 'mysql2', :group => :production
 gem 'sqlite3'
+gem 'russian'
 
 
 # Gems used only for assets and not required

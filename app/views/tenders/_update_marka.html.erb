@@ -1,0 +1,10 @@
+<% if !@update_marka.blank? %>
+       <%= collection_select :filter, :marka, @update_marka, :id, :marka_id %>
+    <% else %>
+    <script type="text/javascript">
+     	$('#update_marka_id').html("<select id=netdatem><option></option></select>");
+     	$('#netdatem').attr("disabled", "disable");
+     </script>
+    <% end %>
+
+	    

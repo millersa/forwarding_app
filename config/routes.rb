@@ -1,20 +1,27 @@
 ForwardingApp::Application.routes.draw do
 
+
+
   resources :drivers
 
   resources :companies
 
 
-  root :to => 'main#index'
-  resources :main
+  root :to => 'tenders#index'
+  resources :tenders
   resources :users
 
+
+   post 'tenders/update_objem_select/:vesJs', :controller=>'tenders', :action => 'update_objem_select'
+   post 'tenders/update_marka_select/:objemJs&:vesJs', :controller=>'tenders', :action => 'update_marka_select'
 
   resources :sessions, :only => [:new, :create, :destroy]
 
   match '/adduser',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+  match '/newtender',  to: 'tenders#new'
+  match '/donetender',  to: 'tenders#done'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -42,8 +42,8 @@ class CompaniesController < ApplicationController
   # POST /companies
   # POST /companies.json
   def create
-    @company = Company.new(params[:company])
-
+    #@company = Company.new(params[:company])
+     @company = current_user.companies.build(params[:company])
     #respond_to do |format|
       if @company.save
         #format.html { redirect_to @company, notice: 'Компания была успешно добавлена.' }

@@ -1,0 +1,68 @@
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="span5 offset4">
+        <ul class="nav nav-tabs">
+    <li class="active">
+    <%= link_to "Новая заявка", newtender_path %>
+    </li>
+    <li><%= link_to "Текущие", root_path %></li>
+    <li><%= link_to "Выполненные", donetender_path %></li>
+    </ul>
+        </div>
+      </div>
+
+
+<%= render 'form_tender' %>
+
+
+     <script type="text/javascript">
+      jQuery(function($) {
+  $('#filter_objem').attr("disabled", "disable");
+  $('#filter_marka').attr("disabled", "disable");
+  $('#filter_objem').empty();
+  $('#filter_marka').empty();
+
+  //выбор объема
+  $("#filter_ves").change(function() {
+    
+    var vesJs = $('#filter_ves :selected').text();
+   
+    jQuery.post('/tenders/update_objem_select/' + vesJs, function(data){
+       $('#filter_objem').removeAttr("disabled");
+        $("#update_objem_id").html(data);
+        alert(data);
+    })
+
+
+    return false;
+  });
+
+  //выбор марки
+
+  $("#filter_objem").live("change",function() {
+    
+    var objemJs = $('#filter_objem :selected').text();
+     var vesJs = $('#filter_ves :selected').text();
+   //alert(vesJs);
+    jQuery.post('/tenders/update_marka_select/' + objemJs + '&' + vesJs, function(data){
+       $('#filter_marka').removeAttr("disabled");
+        $("#update_marka_id").html(data);
+        //alert(data);
+    })
+
+
+    return false;
+  });
+
+}); //закрытие $
+     </script>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,35 @@
+<%= form_for @tender, :html => {:class => "form-horizontal"} do |f| %>
+	      	 <%= render 'shared/error_messages', object: f.object %>
+	        <fieldset>
+	          <legend>Новая заявка</legend>
+	          <div class="control-group">
+	             <%= f.label :tender_company_id, "Компания", :class => "control-label" %>
+	            <div class="controls">
+	              <%= f.collection_select :company_id, Company.order('organization ASC').all, :id, :organization, :prompt => 'Выберите компанию' %>
+	            </div>
+	          </div>
+	          <div class="control-group">
+	             <%= label :ves, "Вес", :class => "control-label" %>
+	            <div class="controls">
+	              <%= collection_select :filter, :ves, @ves, :id, :ves, :prompt => 'Выберите вес' %>
+	            </div>
+	          </div>
+				<div class="control-group">
+	             <%= label :objem, "Объем", :class => "control-label" %>
+	            <div class="controls" id="update_objem_id">
+	            
+	              <%= render :partial => 'update_objem'  %>
+	            </div>
+	          </div>
+	            <div class="control-group">
+			    <%= f.label :marka, "Тип кузова(Марка)", :class => "control-label" %>
+			    <div class="controls" id="update_marka_id">
+			     <%= render :partial => 'update_marka'  %>
+			      </div></div>
+	          <div class="form-actions">
+				 <%= f.submit "Сохранить", :class => "btn btn-primary" %>
+				 <%= link_to 'Назад', users_path, :class => "btn" %> 
+	          </div>
+	        </fieldset>
+	     <% end %>
+

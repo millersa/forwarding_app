@@ -1,7 +1,52 @@
-# This file should contain all the record creation needed to seed the database with its default values.
+﻿# This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 # Examples:
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Marka.create(:name=>"тентованный")
+Marka.create(:name=>"контейнер")
+Marka.create(:name=>"микроавтобус")
+Marka.create(:name=>"цельнометалл.")
+Marka.create(:name=>"рефрижератор")
+Marka.create(:name=>"изотермический")
+Marka.create(:name=>"бортовой")
+Marka.create(:name=>"открытый конт.")
+Marka.create(:name=>"пикап")
+Marka.create(:name=>"шаланда")
+Marka.create(:name=>"негабарит")
+Marka.create(:name=>"низкорамный")
+Marka.create(:name=>"низкорам. платф.")
+Marka.create(:name=>"телескопический")
+Marka.create(:name=>"трал")
+Marka.create(:name=>"автобус")
+Marka.create(:name=>"автовоз")
+Marka.create(:name=>"автовышка")
+Marka.create(:name=>"автотранспортер")
+Marka.create(:name=>"бетоновоз")
+Marka.create(:name=>"бензовоз")
+Marka.create(:name=>"вездеход")
+Marka.create(:name=>"газовоз")
+Marka.create(:name=>"зерновоз")
+Marka.create(:name=>"коневоз")
+Marka.create(:name=>"конт.площадка")
+Marka.create(:name=>"кормовоз")
+Marka.create(:name=>"кран")
+Marka.create(:name=>"лесовоз")
+Marka.create(:name=>"манипулятор")
+Marka.create(:name=>"муковоз")
+Marka.create(:name=>"панелевоз")
+Marka.create(:name=>"самосвал")
+Marka.create(:name=>"седельный тягач")
+Marka.create(:name=>"скотовоз")
+Marka.create(:name=>"стекловоз")
+Marka.create(:name=>"трубовоз")
+Marka.create(:name=>"цементовоз")
+Marka.create(:name=>"цистерна")
+Marka.create(:name=>"щеповоз")
+Marka.create(:name=>"эвакуатор")
+
+
+#District.create(:state_id=>1,:name=>"Hyderabad")
