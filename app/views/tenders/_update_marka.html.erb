@@ -1,5 +1,5 @@
 <% if !@update_marka.blank? %>
-       <%= collection_select :filter, :marka, @update_marka, :id, :marka_id %>
+       <%= collection_select :filter, :marka, @update_marka, :id, :name, :prompt => 'Выберите марку' %>
     <% else %>
     <script type="text/javascript">
      	$('#update_marka_id').html("<select id=netdatem><option></option></select>");

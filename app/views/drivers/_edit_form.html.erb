@@ -51,9 +51,14 @@
       </div></div>
 
     <div class="control-group">
-      <%= f.label :rastentovka, "Растентовка", :class => "control-label" %>
+      <%= f.label :rastentovka_ids, "Растентовка", :class => "control-label" %>
       <div class="controls">
-      <%= f.select(:rastentovka, { "борт" => "борт", "тент" => "тент"}) %>
+        <div style="width:260px; height:100px; overflow:auto; border:solid 1px #C3E4FE;" class="checkbox">
+             <% @raztentovka_checkbox.each do |rastetovka| %>
+            <%= check_box_tag "driver[rastentovka_ids][]", rastetovka.id, @driver.rastentovka_ids.include?(rastetovka.id.to_s) %>
+            <%= rastetovka.name %><br/>
+          <% end %>
+        </div>  
     </div></div>
     <div class="control-group">
       <%= f.label :ves, "Вес", :class => "control-label" %>
@@ -106,4 +111,3 @@
     </div>
 </fieldset>
 <% end %>
-

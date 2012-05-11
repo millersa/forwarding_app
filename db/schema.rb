@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120501112736) do
+ActiveRecord::Schema.define(:version => 20120510121959) do
 
   create_table "companies", :force => true do |t|
     t.string   "organization"
@@ -40,13 +40,19 @@ ActiveRecord::Schema.define(:version => 20120501112736) do
     t.string   "kemvidan"
     t.string   "kogdavidan"
     t.string   "tipkuzova"
-    t.string   "rastentovka"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.integer  "marka_id"
+    t.string   "rastentovka_ids"
   end
 
   create_table "markas", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "raztentovkas", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

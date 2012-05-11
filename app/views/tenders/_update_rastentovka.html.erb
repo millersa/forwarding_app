@@ -1,0 +1,14 @@
+<% if !@update_rastentovka.blank? %>
+<div style="width:260px; height:100px; overflow:auto; border:solid 1px #C3E4FE;" class="checkbox">   
+        <% @raztentovka_checkbox.each do |rastetovka| %>
+            <%= check_box_tag "driver[rastentovka_ids][]", rastetovka.id %>
+            <%= rastetovka.name %><br/>
+          <% end %>
+           </div>  
+    <% else %>
+    <script type="text/javascript">
+     	$('#update_rastentovka_id').hide(); 	
+     </script>
+    <% end %>
+
+	    

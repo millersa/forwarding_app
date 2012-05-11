@@ -45,10 +45,7 @@ end
   end
 
   def update_objem_select
-    @update_objem = ActiveRecord::Base.connection().execute("SELECT objem FROM drivers WHERE ves = '#{params[:vesJs]}' ")
-     #@update_objem = Driver.select(:objem).uniq.where(:ves=>params[:vesJs]) unless params[:vesJs].blank?
-     #@update_objem = Driver.where('ves LIKE ?', "%#{params[:vesJs]}%").uniq unless params[:vesJs].blank?
-      #@update_objem = @update_objem.uniq(true)
+     @update_objem = Driver.select(:objem).uniq.where('ves=?', params[:vesJs]) unless params[:vesJs].blank?
     render :partial => "update_objem", :locals => { :update_objem =>  @update_objem }
     #respond_to do |format|
      # format.js #{ render :layout => false } 
@@ -56,8 +53,32 @@ end
   end
 
   def update_marka_select
-     @update_marka = Driver.where(:objem => params[:objemJs], :ves=>params[:vesJs]) unless params[:objemJs].blank?
+    @update_marka = Driver.find_by_sql("SELECT DISTINCT markas.id, markas.name FROM markas INNER JOIN drivers ON objem = #{params[:objemJs]} AND ves = #{params[:vesJs]} AND drivers.marka_id=markas.id ORDER BY markas.id ASC")
+     #@update_marka = Driver.find_by_sql("SELECT DISTINCT marka_id FROM drivers WHERE (objem = #{params[:objemJs]} AND ves = #{params[:vesJs]})") unless params[:objemJs].blank?
      render :partial => "update_marka", :locals => {:update_marka => @update_marka}
+  end
+
+   def update_tipkuzova_radio
+     @update_tipkuzova = Driver.find_by_sql("SELECT DISTINCT tipkuzova FROM drivers WHERE objem = #{params[:objemJs]} AND ves = #{params[:vesJs]} AND marka_id = #{params[:markaJs]}")
+    # @update_tipkuzova = Driver.select(:tipkuzova).where(:id => 11)
+     render :partial => "update_tipkuzova", :locals => { :update_tipkuzova =>  @update_tipkuzova }
+  end
+
+  def update_rastentovka_checkbox
+     @raztentovka_checkbox = Raztentovka.order('id ASC').all
+     @update_rastentovka = @raztentovka_checkbox
+    # @update_tipkuzova = Driver.select(:tipkuzova).where(:id => 11)
+     render :partial => "update_rastentovka", :locals => { :update_rastentovka =>  @update_rastentovka }
+  end
+
+  def update_driver_data
+    #session[:driverDate] = ['a','b']
+    
+     @update_driver = params[:rastentovkaJs]
+      @update_tipkuzova = Driver.find_by_sql("SELECT * FROM drivers WHERE rastentovka_ids = #{params[:rastentovkaJs]}")
+    # @update_tipkuzova = Driver.select(:tipkuzova).where(:id => 11)
+    # @update_tipkuzova = Driver.select(:tipkuzova).where(:id => 11)
+     render :partial => "update_driver", :locals => { :update_driver =>  @update_driver }
   end
 
 end

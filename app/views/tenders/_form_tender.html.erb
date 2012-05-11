@@ -16,16 +16,34 @@
 	          </div>
 				<div class="control-group">
 	             <%= label :objem, "Объем", :class => "control-label" %>
-	            <div class="controls" id="update_objem_id">
-	            
+	            <div class="controls" id="update_objem_id">           
 	              <%= render :partial => 'update_objem'  %>
 	            </div>
-	          </div>
+	          </div>	          
 	            <div class="control-group">
 			    <%= f.label :marka, "Тип кузова(Марка)", :class => "control-label" %>
 			    <div class="controls" id="update_marka_id">
 			     <%= render :partial => 'update_marka'  %>
 			      </div></div>
+				<div class="control-group">
+				  <%= f.label :tipkuzova, "Тип кузова", :class => "control-label" %>
+				   <div class="controls" id="update_tipkuzova_id">  		       
+	              <%= render :partial => 'update_tipkuzova'  %>
+				  </div></div>
+				  <div class="control-group">
+				  <%= f.label :rastentovka_ids, "Растентовка", :class => "control-label" %>
+				   <div class="controls" id="update_rastentovka_id">      
+
+	              <%= render :partial => 'update_rastentovka'  %>
+	             
+				  </div></div>	
+				  <div class="control-group">
+				  <%= f.label :rastentovka_id, "Растентовка", :class => "control-label" %>
+				   <div class="controls" id="update_driver_id">      
+				        
+	              <%= render :partial => 'update_rastentovka'  %>
+	             
+				  </div></div>	
 	          <div class="form-actions">
 				 <%= f.submit "Сохранить", :class => "btn btn-primary" %>
 				 <%= link_to 'Назад', users_path, :class => "btn" %> 

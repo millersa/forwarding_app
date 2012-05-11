@@ -1,6 +1,6 @@
 <h3>Список водителей</h3>
 
-<%= will_paginate %>
+<%= will_paginate @drivers, previous_label: h("<"), next_label: h(">") %>
 
   <table class="table table-bordered table-striped">
     <thead>
@@ -29,18 +29,13 @@
     <td><%= driver.lname %></td>
     <td><%= driver.oname %></td>
     <td><%= driver.phone %></td>
-    <td><%= driver.contacts %></td>
-    <td><%= driver.marka_id %>
-       
-         <% if driver.marka_id == 1 %>
-  <%= driver.marka_id = "тентованный" %>
+    <td><%= driver.contacts %></td>       
+    <td>
+        <% @markaSpisok.each do |marka| %>
+            <% if marka.id == driver.marka_id %>
+            <%= marka.name %>
             <% end %>
-     <% if driver.marka_id == 5 %>
-     <%= driver.marka_id = "реф" %>
-   <% else %>
-   <%= driver.marka_id = "нет" %>
-    <% end %>
-
+        <% end %>
     </td>
     <td>
          <% if driver.tipkuzova == '1' %>
@@ -53,7 +48,14 @@
              <%= driver.tipkuzova = "сцепка" %>
          <% end %>
     </td>
-    <td><%= driver.rastentovka %></td>
+    <td>
+        <% @raztentovka_checkbox.each do |rastetovka| %>
+           <% if driver.rastentovka_ids.include?(rastetovka.id.to_s) %>
+            <%= rastetovka.name %><br/>
+            ------------<br/>
+          <% end %>
+        <% end %>
+    </td>
     <td><%= driver.ves %></td>
     <td><%= driver.objem %></td>
     <td><%= driver.gosnomer %></td>
@@ -70,4 +72,4 @@
  
 <%= link_to 'Добавить водителя', new_driver_path, :class => "btn btn-success" %>
 
-<%= will_paginate %>
+<%= will_paginate @drivers, previous_label: h("<"), next_label: h(">") %>

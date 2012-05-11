@@ -73,7 +73,11 @@
 
 <p>
   <b>Растентовка:</b>
-  <%= @driver.rastentovka %>
+ <% @raztentovka_checkbox.each do |rastetovka| %>
+    <% if @driver.rastentovka_ids.include?(rastetovka.id.to_s) %>
+      <%= rastetovka.name %>;  
+    <% end %>
+<% end %>
 </p>
 
 

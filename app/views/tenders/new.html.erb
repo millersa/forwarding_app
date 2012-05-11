@@ -22,16 +22,17 @@
   $('#filter_marka').attr("disabled", "disable");
   $('#filter_objem').empty();
   $('#filter_marka').empty();
+  $('#update_tipkuzova_id').hide();   
 
   //выбор объема
   $("#filter_ves").change(function() {
     
     var vesJs = $('#filter_ves :selected').text();
    
-    jQuery.post('/tenders/update_objem_select/' + vesJs, function(data){
+    jQuery.post('/tenders/updateobjem_select/' + vesJs, function(data){
        $('#filter_objem').removeAttr("disabled");
         $("#update_objem_id").html(data);
-        alert(data);
+        //alert(data);
     })
 
 
@@ -43,19 +44,112 @@
   $("#filter_objem").live("change",function() {
     
     var objemJs = $('#filter_objem :selected').text();
-     var vesJs = $('#filter_ves :selected').text();
+    if (objemJs && objemJs!='Выберите объем') {
+      var vesJs = $('#filter_ves :selected').text();
    //alert(vesJs);
-    jQuery.post('/tenders/update_marka_select/' + objemJs + '&' + vesJs, function(data){
+    jQuery.post('/tenders/updatemarka_select/' + objemJs + '&' + vesJs, function(data){
        $('#filter_marka').removeAttr("disabled");
         $("#update_marka_id").html(data);
-        //alert(data);
+       // alert(data);
     })
-
-
+    }
+    else {
+       $('#filter_marka').attr("disabled", "disable");
+        $('#filter_marka').empty();
+        $('#update_tipkuzova_id').hide();   
+        $('#update_rastentovka_id').hide();
+      }
     return false;
+  
   });
 
+   //выбор марки
+
+  $("#filter_marka").live("change",function() {
+    
+    var markaJs = $('#filter_marka :selected').val();
+
+    if (markaJs && markaJs!='Выберите марку') {
+      var vesJs = $('#filter_ves :selected').text();
+      var objemJs = $('#filter_objem :selected').text();
+    jQuery.post('/tenders/updatetipkuzova_radio/' + objemJs + '&' + vesJs + '&' + markaJs, function(data){
+       
+       $('#update_tipkuzova_id').show();
+        $("#update_tipkuzova_id").html(data);
+        //alert(data);
+    })
+    }
+    else {
+       $('#update_tipkuzova_id').hide();
+        $('#update_rastentovka_id').hide();
+        //$('#filter_marka').empty();
+      }
+    return false;
+  
+  });
+
+   //выбор типкузова
+
+  $("#update_tipkuzova_id").live("change",function() {
+    
+    var tipkuzovaJs = $('#update_tipkuzova_id :checked').val();
+
+    if (tipkuzovaJs) {
+      var vesJs = $('#filter_ves :selected').text();
+      var objemJs = $('#filter_objem :selected').text();
+      var markaJs = $('#filter_marka :selected').val();
+
+    jQuery.post('/tenders/updaterastentovka_checkbox/' + objemJs + '&' + vesJs + '&' + markaJs + '&' + tipkuzovaJs, function(data){
+       
+       $('#update_rastentovka_id').show();
+        $("#update_rastentovka_id").html(data);
+        //alert(data);
+    })
+    }
+    else {
+       $('#update_rastentovka_id').hide();
+      }
+
+    return false;
+  
+  });
+
+   //выбор растентовки
+
+  $("#update_rastentovka_id").live("change",function() {
+    
+    var tipkuzovaJs = $('#update_tipkuzova_id :checked').val();
+    var rastentovkaJs =  new Array();
+    $("input[name='driver[rastentovka_ids][]']:checked").each(function() {rastentovkaJs.push($(this).val());});
+if (rastentovkaJs .length == 0) {
+alert("Please select item(s) to delete.");
+
+}
+    alert(rastentovkaJs);
+    if (tipkuzovaJs) {
+      var vesJs = $('#filter_ves :selected').text();
+      var objemJs = $('#filter_objem :selected').text();
+      var markaJs = $('#filter_marka :selected').val();
+
+    jQuery.post('/tenders/updatedriverdata/' + objemJs + '&' + vesJs + '&' + markaJs + '&' + tipkuzovaJs + '&' + rastentovkaJs, function(data){
+       
+       //$('#update_rastentovka_id').show();
+        $("#update_driver_id").html(data);
+        //alert(data);
+    })
+    }
+    else {
+       //$('#update_rastentovka_id').hide();
+      }
+
+    return false;
+  
+  });
+
+
 }); //закрытие $
+
+
      </script>
 
 

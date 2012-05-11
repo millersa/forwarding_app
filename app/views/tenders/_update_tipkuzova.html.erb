@@ -1,0 +1,23 @@
+<% if !@update_tipkuzova.blank? %>
+	
+		<% [ '1', '2', '3' ].each do |tipkuzova| %>
+		<%= radio_button_tag 'tipkuzova', tipkuzova, @update_tipkuzova == tipkuzova %>
+		<% if (tipkuzova == '1') %>
+			<%= label = 'полуприцеп' %>
+			<% end %>
+		<% if (tipkuzova == '2') %>
+		<%= label = 'грузовик' %>
+		<% end %>
+		<% if (tipkuzova == '3') %>
+		<%= label = 'сцепка' %>
+			 <% end %>
+    <% end %>
+    <% else %>
+    <script type="text/javascript">
+     	$('#update_tipkuzova_id').hide(); 
+
+     </script>
+ <% end %>
+
+	    
+						  

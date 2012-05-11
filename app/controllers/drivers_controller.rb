@@ -1,59 +1,12 @@
  #coding: utf-8
 class DriversController < ApplicationController
+
   before_filter :signed_in_user
-  # GET /drivers
-  # GET /drivers.json
+ 
   def index
     @drivers = Driver.page(params[:page]).per_page(7)
-  #@marka_index = Driver.find(drivers.marka_id)
-    #@markaIn = @marka_index.marka_id
-   # @marka_index = case @marka_index
-   #   when 1 then "тентованный"
-   #   when '2' then "контейнер"
-   #   when '3' then "микроавтобус"
-   #   when '4' then "фургон"
-   #   when '5' then "цельнометалл"
-   #   when '6' then "рефрижератор"
-   #   when '7' then "изотермический"
-   #   when '8' then "бортовой"
-   #   when '9' then "открытый конт."
-   #    when '10' then "пикап"
-   #    when '11' then "шаланда"
-   #    when '12' then "негабарит"
-   #    when '13' then "низкорамный"
-   #    when '14' then "низкорам. платф."
-   #    when '15' then "телескопический"
-   #    when '16' then "трал"
-   #    when '17' then "автобус"
-   #    when '18' then "автовоз"
-   #    when '19' then "автовышка"
-   #    when '20' then "автотранспортер"
-   #    when '21' then "бетоновоз"
-   #    when '22' then "бензовоз"
-   #    when '23' then "вездеход"       
-   #    when '24' then "газовоз"
-   #    when '25' then "зерновоз"
-   #    when '26' then "коневоз"
-   #    when '27' then "конт.площадка"
-   #    when '28' then "кормовоз" 
-   #    when '29' then "кран"
-   #    when '30' then "лесовоз"
-   #    when '31' then "манипулятор"
-   #    when '32' then "муковоз"
-   #    when '33' then "панелевоз"
-   #    when '34' then "самосвал"
-   #    when '35' then "седельный тягач"
-   #    when '36' then "скотовоз"
-   #    when '37' then "стекловоз"
-   #    when '38' then "трубовоз"
-   #    when '39' then "цементовоз"
-   #    when '40' then "цистерна"
-   #    when '41' then "щеповоз"
-   #    when '42' then "эвакуатор"
-   #  else "Не заполнено"
-   #  end
-
-
+    @markaSpisok = Marka.order('id ASC').all
+    @raztentovka_checkbox = Raztentovka.order('id ASC').all
     @title = 'Список водителей'
     respond_to do |format|
       format.html # index.html.erb
@@ -65,6 +18,7 @@ class DriversController < ApplicationController
   # GET /drivers/1.json
   def show
     @driver = Driver.find(params[:id])
+    @raztentovka_checkbox = Raztentovka.order('id ASC').all
    @marka = @driver.marka_id
    @marka = case @marka
      when 1 then "тентованный"
@@ -122,8 +76,12 @@ class DriversController < ApplicationController
   # GET /drivers/new
   # GET /drivers/new.json
   def new
+    
+   
     @driver = Driver.new
+    #params[:driver][:rastentovka_ids] ||= []
     @marka_select = Marka.order('id ASC').all
+    @raztentovka_checkbox = Raztentovka.order('id ASC').all
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @driver }
@@ -134,6 +92,8 @@ class DriversController < ApplicationController
   def edit
     @driver = Driver.find(params[:id])
     @marka_select = Marka.order('id ASC').all
+     @raztentovka_checkbox = Raztentovka.order('id ASC').all
+     
     @title = 'Редактирование водителя'
   end
 
@@ -141,7 +101,7 @@ class DriversController < ApplicationController
   # POST /drivers.json
   def create
     @driver = Driver.new(params[:driver])
- 
+
       if @driver.save
         flash[:success] = 'Водитель был успешно добавлен.'
         redirect_to @driver

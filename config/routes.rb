@@ -12,8 +12,12 @@ ForwardingApp::Application.routes.draw do
   resources :users
 
 
-   post 'tenders/update_objem_select/:vesJs', :controller=>'tenders', :action => 'update_objem_select'
-   post 'tenders/update_marka_select/:objemJs&:vesJs', :controller=>'tenders', :action => 'update_marka_select'
+   post 'tenders/updateobjem_select/:vesJs', :controller=>'tenders', :action => 'update_objem_select'
+   post 'tenders/updatemarka_select/:objemJs&:vesJs', :controller=>'tenders', :action => 'update_marka_select'
+   post 'tenders/updatetipkuzova_radio/:objemJs&:vesJs&:markaJs', :controller=>'tenders', :action => 'update_tipkuzova_radio'
+   post 'tenders/updaterastentovka_checkbox/:objemJs&:vesJs&:markaJs&:tipkuzovaJs', :controller=>'tenders', :action => 'update_rastentovka_checkbox'
+   post 'tenders/updatedriverdata/:objemJs&:vesJs&:markaJs&:tipkuzovaJs&:rastentovkaJs', :controller=>'tenders', :action => 'update_driver_data'
+   
 
   resources :sessions, :only => [:new, :create, :destroy]
 

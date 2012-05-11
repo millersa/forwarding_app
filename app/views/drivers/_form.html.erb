@@ -1,4 +1,4 @@
-<%= form_for @driver, :html => {:class => "form-horizontal"} do |f| %>
+     <%= form_for @driver, :html => {:class => "form-horizontal"} do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
     <fieldset>
       <legend>Добавление водителя</legend>
@@ -33,7 +33,7 @@
   </div></div>
 
   <div class="control-group">
-    <%= f.label :marka, "Тип кузова(Марка)", :class => "control-label" %>
+    <%= f.label :marka_id, "Тип кузова(Марка)", :class => "control-label" %>
     <div class="controls">
     <%= f.collection_select(:marka_id, @marka_select, :id, :name, :prompt => "Выберите марку") %>
       </div></div>
@@ -48,16 +48,15 @@
            <%= label :tipkuzova_scepka, 'сцепка', :class => "radio inline" %>
   </div></div>
 
-    <!--<div class="control-group">
-      <%= f.label :tipkuzova, "Тип кузова", :class => "control-label" %>
-      <div class="controls">
-      <%= f.select(:tipkuzova, { "борт" => "борт", "тент" => "тент"})  %>
-    </div></div>-->
-
     <div class="control-group">
-      <%= f.label :rastentovka, "Растентовка", :class => "control-label" %>
+      <%= f.label :rastentovka_id, "Растентовка", :class => "control-label" %>
       <div class="controls">
-      <%= f.select(:rastentovka, { "борт" => "борт", "тент" => "тент"}) %>
+        <div style="width:260px; height:100px; overflow:auto; border:solid 1px #C3E4FE;" class="checkbox">
+          <% @raztentovka_checkbox.each do |rastetovka| %>
+            <%= check_box_tag "driver[rastentovka_ids][]", rastetovka.id %>
+            <%= rastetovka.name %><br/>
+          <% end %>
+        </div>  
     </div></div>
     <div class="control-group">
       <%= f.label :ves, "Вес", :class => "control-label" %>
