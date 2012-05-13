@@ -68,18 +68,25 @@
 
 <p>
   <b>Тип кузова:</b>
-  <%= @driver.tipkuzova %>
+  <% if @driver.tipkuzova == '1' %>
+             <%= @driver.tipkuzova = "попуприцеп" %>
+         <% end %>
+         <% if @driver.tipkuzova == '2' %>
+             <%= @driver.tipkuzova = "грузовик" %>
+         <% end %>
+         <% if @driver.tipkuzova == '3' %>
+             <%= @driver.tipkuzova = "сцепка" %>
+         <% end %>
 </p>
 
 <p>
-  <b>Растентовка:</b>
- <% @raztentovka_checkbox.each do |rastetovka| %>
-    <% if @driver.rastentovka_ids.include?(rastetovka.id.to_s) %>
-      <%= rastetovka.name %>;  
-    <% end %>
-<% end %>
+  <b>Растентовка:</b><br>
+   <% @driver.raztentovkas.each do |rastentovka| %>
+    <li><%= rastentovka.name %></li>
+  <% end %>
+
 </p>
 
 
 <%= link_to 'Редактировать', edit_driver_path(@driver) %> |
-<%= link_to 'Назад', drivers_path %>
+<%= link_to 'Список водителей', drivers_path %>

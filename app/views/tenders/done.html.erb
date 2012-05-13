@@ -15,20 +15,45 @@
  <div class="row">
         <div class="span8 offset2">
      <h3>Выполненные</h3>
+       <%= will_paginate @tenders, previous_label: h("<"), next_label: h(">") %>
        <table class="table table-bordered table-striped">
               <thead>
                 <tr>
-                <th>Название</th>
-                <th>Цена</th>
+                <th>Компания</th>
+                <th>Стоимость</th>
+                <th>Маршрут</th>
+                <th>Грузоотправитель</th>
+                <th>Грузополучатель</th>
+                <th>Адрес погрузки</th>
+                <th>Адрес разгрузки</th>
+                <th></th>
+                <th></th>
+                <th></th>
                 </tr>
               </thead>
               <tbody>
+                 <% @tenders.each do |tender| %>
                 <tr>
-                <td>авыавыа</td>
-                <td>12</td>
+                <td><% Company.all.each do |company| %>
+                        <% if company.id == tender.company_id %>
+                        <%= company.organization %>
+                        <% end %>
+                    <% end %>
+               </td>
+                <td><%= tender.price %></td>
+                <td><%= tender.route %></td>
+                <td><%= tender.gruzotpravitel %></td>
+                <td><%= tender.gruzopoluhatel %></td>
+                <td><%= tender.adress_pogruzka %></td>
+                <td><%= tender.adress_razgruzki %></td>
+                <td><%= link_to 'Показать', tender %></td>
+                <td><%= link_to 'Редактировать', edit_tender_path(tender) %></td>
+                <td><%= link_to 'Удалить', tender, confirm: 'Вы уверены?', method: :delete %></td>
                 </tr>
+                <% end %>
               </tbody>
         </table>
+          <%= will_paginate @tenders, previous_label: h("<"), next_label: h(">") %>
      </div>
    </div>
 

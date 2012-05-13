@@ -5,8 +5,7 @@ class TendersController < ApplicationController
   def new
   	@tender = Tender.new
     @update_objem = Driver.order('objem ASC').all
-    @ves = Driver.select(:ves).uniq
-
+    #@ves = Driver.select(:ves).uniq
     #@update_marka = Driver.where(:ves => 10, :objem => 20)
     #@company = current_user.companies.find_by_id(params[:id])
     #@company = Company.find(:all)
@@ -32,12 +31,42 @@ class TendersController < ApplicationController
 end
 
   def index
+    @tenders = Tender.where("status=?", false).page(params[:page]).per_page(7)
   	@title = "Главная"
+    
   end
 
   def done
+    @tenders = Tender.where("status=?", true).page(params[:page]).per_page(7)
+    @title = "Главная"
   end
 
+  def show
+     @tender = Tender.find(params[:id])
+     @title = "Просмотр заявки № #{@tender.id}"
+    
+  end
+
+  def edit
+    @tender = Tender.find(params[:id])    
+    @title = "Редактирование заявки № #{@tender.id}"
+  end
+
+  def update
+    @tender = Tender.find(params[:id])
+    if @tender.update_attributes(params[:tender])
+      redirect_to @tender, notice: "Заявка успешно отредактирована."
+    else
+      render :edit
+    end
+    
+  end
+
+  def destroy
+    @tender = Tender.find(params[:id])
+    @tender.destroy
+    redirect_to tenders_url, notice: "Заявка удалена успешно."
+  end
 
   def update_buginfo_select
      @buginfos = Buginfo.where(:id => params[:reportview][:buginfo_ids] , :analysistool_id =>params[:id])
@@ -72,12 +101,9 @@ end
   end
 
   def update_driver_data
-    #session[:driverDate] = ['a','b']
-    
-     @update_driver = params[:rastentovkaJs]
-      @update_tipkuzova = Driver.find_by_sql("SELECT * FROM drivers WHERE rastentovka_ids = #{params[:rastentovkaJs]}")
-    # @update_tipkuzova = Driver.select(:tipkuzova).where(:id => 11)
-    # @update_tipkuzova = Driver.select(:tipkuzova).where(:id => 11)
+    @update_driver = Driver.find_by_sql("SELECT DISTINCT drivers.id, drivers.fname, drivers.lname FROM drivers INNER JOIN categorizations 
+      ON drivers.id = categorizations.driver_id WHERE  objem = #{params[:objemJs]} AND ves = #{params[:vesJs]} AND marka_id = #{params[:markaJs]} 
+      AND tipkuzova = #{params[:tipkuzovaJs]} AND categorizations.raztentovka_id IN (#{params[:rastentovkaJs]}) ")
      render :partial => "update_driver", :locals => { :update_driver =>  @update_driver }
   end
 

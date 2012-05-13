@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120510121959) do
+ActiveRecord::Schema.define(:version => 20120513085220) do
+
+  create_table "categorizations", :force => true do |t|
+    t.integer  "raztentovka_id"
+    t.integer  "driver_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
   create_table "companies", :force => true do |t|
     t.string   "organization"
@@ -40,10 +47,9 @@ ActiveRecord::Schema.define(:version => 20120510121959) do
     t.string   "kemvidan"
     t.string   "kogdavidan"
     t.string   "tipkuzova"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "marka_id"
-    t.string   "rastentovka_ids"
   end
 
   create_table "markas", :force => true do |t|
@@ -72,9 +78,10 @@ ActiveRecord::Schema.define(:version => 20120510121959) do
     t.date     "data_razgruzki"
     t.time     "vremy_razgruzlki"
     t.string   "gruzopoluhatel"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.integer  "user_id"
+    t.boolean  "status",           :default => false
   end
 
   create_table "users", :force => true do |t|

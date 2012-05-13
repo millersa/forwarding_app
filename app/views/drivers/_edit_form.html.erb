@@ -33,10 +33,10 @@
   </div></div>
 
   <div class="control-group">
-    <%= f.label :marka, "Марка", :class => "control-label" %>
+    <%= f.label :marka_id, "Тип кузова(Марка)", :class => "control-label" %>
     <div class="controls">
-      <%= f.collection_select(:marka_id, @marka_select, :id, :name) %>
-  </div></div>
+    <%= f.collection_select(:marka_id, Marka.order('id ASC').all, :id, :name) %>
+      </div></div>
 
      <div class="control-group">
       <%= f.label :tipkuzova, "Тип кузова", :class => "control-label" %>
@@ -51,12 +51,13 @@
       </div></div>
 
     <div class="control-group">
-      <%= f.label :rastentovka_ids, "Растентовка", :class => "control-label" %>
+      <%= f.label :raztentovka_ids, "Растентовка", :class => "control-label" %>
       <div class="controls">
         <div style="width:260px; height:100px; overflow:auto; border:solid 1px #C3E4FE;" class="checkbox">
-             <% @raztentovka_checkbox.each do |rastetovka| %>
-            <%= check_box_tag "driver[rastentovka_ids][]", rastetovka.id, @driver.rastentovka_ids.include?(rastetovka.id.to_s) %>
-            <%= rastetovka.name %><br/>
+           <%= hidden_field_tag "driver[raztentovka_ids][]", nil %>
+          <% Raztentovka.all.each do |rastentovka| %>
+            <%= check_box_tag "driver[raztentovka_ids][]", rastentovka.id, @driver.raztentovka_ids.include?(rastentovka.id), id: dom_id(rastentovka) %>
+            <%= rastentovka.name %><br>
           <% end %>
         </div>  
     </div></div>
@@ -85,7 +86,7 @@
   </div></div>
 
   <div class="control-group">
-    <%= f.label :passport, "Паспортные данные", :class => "control-label" %>
+    <%= f.label :seriy, "Паспортные данные", :class => "control-label" %>
               <div class="controls form-inline">
     <%= f.text_field :seriy, :class => "span1", :placeholder => "Серия" %>
     <%= f.text_field :nomerp, :class => "span2", :placeholder => "Номер"  %>

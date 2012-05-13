@@ -1,8 +1,11 @@
 <% if !@update_driver.blank? %>
-<%= @update_driver %>
+
+<%= collection_select :tender, :driver_id, @update_driver, :id, :fname, :prompt => 'Выберите марку' %>
+
     <% else %>
     <script type="text/javascript">
-     	$('#update_rastentovka_id').hide(); 	
+    	//$('#update_driver_id').text("не найдено");
+     	$('#update_driver_id').hide(); 	
      </script>
     <% end %>
 

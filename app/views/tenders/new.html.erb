@@ -11,9 +11,12 @@
     </ul>
         </div>
       </div>
+    <div class="row">
+        <div class="span4 offset4">
+          <%= render 'form_tender' %>   
+     </div>
+    </div> 
 
-
-<%= render 'form_tender' %>
 
 
      <script type="text/javascript">
@@ -58,6 +61,7 @@
         $('#filter_marka').empty();
         $('#update_tipkuzova_id').hide();   
         $('#update_rastentovka_id').hide();
+        $('#update_driver_id').hide();
       }
     return false;
   
@@ -75,6 +79,7 @@
     jQuery.post('/tenders/updatetipkuzova_radio/' + objemJs + '&' + vesJs + '&' + markaJs, function(data){
        
        $('#update_tipkuzova_id').show();
+
         $("#update_tipkuzova_id").html(data);
         //alert(data);
     })
@@ -82,7 +87,7 @@
     else {
        $('#update_tipkuzova_id').hide();
         $('#update_rastentovka_id').hide();
-        //$('#filter_marka').empty();
+        $('#update_driver_id').hide();
       }
     return false;
   
@@ -93,6 +98,7 @@
   $("#update_tipkuzova_id").live("change",function() {
     
     var tipkuzovaJs = $('#update_tipkuzova_id :checked').val();
+
 
     if (tipkuzovaJs) {
       var vesJs = $('#filter_ves :selected').text();
@@ -108,6 +114,7 @@
     }
     else {
        $('#update_rastentovka_id').hide();
+       $('#update_driver_id').hide();
       }
 
     return false;
@@ -121,11 +128,12 @@
     var tipkuzovaJs = $('#update_tipkuzova_id :checked').val();
     var rastentovkaJs =  new Array();
     $("input[name='driver[rastentovka_ids][]']:checked").each(function() {rastentovkaJs.push($(this).val());});
-if (rastentovkaJs .length == 0) {
-alert("Please select item(s) to delete.");
+    if (rastentovkaJs .length == 0) {
+    //alert("Please select item(s) to delete.");
+     $('#update_driver_id').hide();
 
-}
-    alert(rastentovkaJs);
+    }
+    //alert(rastentovkaJs);
     if (tipkuzovaJs) {
       var vesJs = $('#filter_ves :selected').text();
       var objemJs = $('#filter_objem :selected').text();
@@ -133,7 +141,7 @@ alert("Please select item(s) to delete.");
 
     jQuery.post('/tenders/updatedriverdata/' + objemJs + '&' + vesJs + '&' + markaJs + '&' + tipkuzovaJs + '&' + rastentovkaJs, function(data){
        
-       //$('#update_rastentovka_id').show();
+       $('#update_driver_id').show();
         $("#update_driver_id").html(data);
         //alert(data);
     })

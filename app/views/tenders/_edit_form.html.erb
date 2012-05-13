@@ -1,48 +1,13 @@
 <%= form_for @tender, :html => {:class => "form-horizontal"} do |f| %>
 	      	 <%= render 'shared/error_messages', object: f.object %>
 	        <fieldset>
-	          <legend>Новая заявка</legend>
+	          <legend>Редактирование заявки</legend>
 	          <div class="control-group">
 	             <%= f.label :company_id, "Компания", :class => "control-label" %>
 	            <div class="controls">
 	              <%= f.collection_select :company_id, Company.order('organization ASC').all, :id, :organization, :prompt => 'Выберите компанию' %>
 	            </div>
 	          </div>
-	          <div class="control-group">
-	             <%= label :ves, "Вес", :class => "control-label" %>
-	            <div class="controls">
-	              <%= collection_select :filter, :ves, Driver.select(:ves).uniq, :id, :ves, :prompt => 'Выберите вес' %>
-	            </div>
-	          </div>
-				<div class="control-group">
-	             <%= label :objem, "Объем", :class => "control-label" %>
-	            <div class="controls" id="update_objem_id">           
-	              <%= render :partial => 'update_objem'  %>
-	            </div>
-	          </div>	          
-	            <div class="control-group">
-			    <%= label :marka, "Тип кузова(Марка)", :class => "control-label" %>
-			    <div class="controls" id="update_marka_id">
-			     <%= render :partial => 'update_marka'  %>
-			      </div></div>
-				<div class="control-group">
-				  <%= label :tipkuzova, "Тип кузова", :class => "control-label" %>
-				   <div class="controls" id="update_tipkuzova_id">  		       
-	              <%= render :partial => 'update_tipkuzova'  %>
-				  </div></div>
-				  <div class="control-group">
-				  <%= label :rastentovka_ids, "Растентовка", :class => "control-label" %>
-				   <div class="controls" id="update_rastentovka_id">      
-
-	              <%= render :partial => 'update_rastentovka'  %>
-	             
-				  </div></div>	
-				  <div class="control-group">
-				  <%= label :rastentovka_id, "Растентовка", :class => "control-label" %>
-				   <div class="controls" id="update_driver_id">      				        
-	              <%= render :partial => 'update_driver'  %>	             
-				  </div></div>	
-
 
 				<div class="control-group">
 	             <%= f.label :price, "Стоимость", :class => "control-label" %>
@@ -98,7 +63,7 @@
 
 	          <div class="form-actions">
 				 <%= f.submit "Сохранить", :class => "btn btn-primary" %>
-				 <%= link_to 'Назад', users_path, :class => "btn" %> 
+				 <%= link_to 'Назад', tenders_path, :class => "btn" %> 
 	          </div>
 	        </fieldset>
 	     <% end %>

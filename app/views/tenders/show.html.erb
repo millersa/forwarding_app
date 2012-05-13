@@ -1,0 +1,134 @@
+   <div class="row">
+        <div class="span4 offset4">
+       <legend>Просмотр заявки № <%= @tender.id %></legend>
+<p>
+  <b>Компания:</b>
+  <% Company.all.each do |company| %>
+    <% if company.id == @tender.company_id %>
+    <%= company.organization %>
+    <% end %>
+  <% end %>
+</p>
+
+<p>
+  <b>Стоимость:</b>
+  <%= @tender.price %>
+</p>
+
+<p>
+  <b>Маршрут:</b>
+  <%= @tender.route %>
+</p>
+
+<p>
+  <b>Форма оплаты:</b>
+  <%= @tender.form_oplata %>
+</p>
+
+<p>
+  <b>Адресс погрузки:</b>
+  <%= @tender.adress_pogruzka %>
+</p>
+
+<p>
+  <b>Адресс разгрузки:</b>
+  <%= @tender.adress_razgruzki %>
+</p>
+
+<p>
+  <b>Грузоотправитель:</b>
+  <%= @tender.gruzotpravitel %>
+</p>
+
+<p>
+  <b>Грузополучатель:</b>
+  <%= @tender.gruzopoluhatel %>
+</p>
+
+<p>
+<hr>
+<p>
+  <b>Ф.И.О:</b>
+  <% Driver.where("id=?", @tender.driver_id).each do |r| %>
+  <%= "#{r.lname} #{r.fname} #{r.oname}" %>
+</p>
+
+<p>
+  <b>Вес:</b>
+  <%= r.ves %>
+</p>
+
+<p>
+  <b>Объем:</b>
+  <%= r.objem %> куб/м
+</p>
+
+<p>
+  <b>Телефон:</b>
+  <% if  !r.phone %>
+  <%= r.phone = '' %> 
+ <% else %>
+  <%= r.phone %> 
+  <% end %>
+</p>
+
+<p>
+  <b>Гос № а/м:</b>
+  <%= r.gosnomer %>
+</p>
+
+<p>
+  <b>Гос № п/п:</b>
+  <%= r.gosnomerp %>
+</p>
+
+<p>
+  <b>Паспорт:</b>
+  <%= "#{r.seriy}  #{r.nomerp}" %><br>
+  <%= "#{r.kemvidan}  #{r.kogdavidan}" %>
+</p>
+
+<p>
+  <b>Тип кузова:</b>
+  <% if r.tipkuzova == '1' %>
+             <%= r.tipkuzova = "попуприцеп" %>
+         <% end %>
+         <% if r.tipkuzova == '2' %>
+             <%= @driver.tipkuzova = "грузовик" %>
+         <% end %>
+         <% if r.tipkuzova == '3' %>
+             <%= r.tipkuzova = "сцепка" %>
+         <% end %>
+</p>
+
+<p>
+  <b>Марка:</b>
+ <% Marka.where("id=?", r.marka).each do |marka| %>
+            <%= marka.name %>
+        <% end %>
+</p>
+
+<% end %>
+<hr>
+<p>
+  <b>Пользователь:</b>
+  <% User.all.each do |user| %>
+    <% if user.id == @tender.user_id %>
+    <%= user.username %>
+    <% end %>
+  <% end %>
+</p>
+
+<p>
+  <b>Статус заявки:</b>
+  <% if @tender.status %>
+    <%=  status = 'Выполненая' %>
+  <% else %>
+  <%= status = 'Текущая' %>
+  <% end %>
+</p>
+<hr>
+  <%= link_to 'Редактировать', edit_tender_path(@tender) %> |
+<%= link_to 'Список заявок', tenders_path %>
+     </div>
+    </div> 

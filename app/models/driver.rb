@@ -1,7 +1,7 @@
  #coding: utf-8
 class Driver < ActiveRecord::Base
 
-	attr_accessible :fname, :lname, :oname, :phone, :marka_id, :tipkuzova, :rastentovka_ids, :ves, :objem, :gosnomer, :gosnomerp, :seriy, :nomerp, :kemvidan, :kogdavidan, :contacts
+	attr_accessible :fname, :lname, :oname, :phone, :marka_id, :tipkuzova, :raztentovka_ids, :ves, :objem, :gosnomer, :gosnomerp, :seriy, :nomerp, :kemvidan, :kogdavidan, :contacts
 
 	validates :fname, :presence => true
 	validates :lname, :presence => true
@@ -10,7 +10,7 @@ class Driver < ActiveRecord::Base
 	#validates :marka, :inclusion => { :in => [true], :message => "не должно быть пустым" }
 	#validates :marka_id, :presence => true					
 	validates :tipkuzova, :presence => true
-	#validates :rastentovka, :presence => true
+	validates :raztentovka_ids, :presence => true
 	validates :ves, :presence => true
 	validates :objem, :presence => true
 	validates :gosnomer, :presence => true
@@ -22,9 +22,12 @@ class Driver < ActiveRecord::Base
 
 	has_many :tenders
 	belongs_to :marka 
-	belongs_to :raztentovka
+	#belongs_to :raztentovka
 
-	serialize :rastentovka_ids, Array
+	#serialize :rastentovka_ids, Array
+
+	has_many :categorizations
+ 	has_many :raztentovkas, through: :categorizations
 	#before_validation :update_rastentovka_ids
 
 	#def update_rastentovka_ids

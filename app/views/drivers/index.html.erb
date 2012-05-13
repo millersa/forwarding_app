@@ -49,12 +49,9 @@
          <% end %>
     </td>
     <td>
-        <% @raztentovka_checkbox.each do |rastetovka| %>
-           <% if driver.rastentovka_ids.include?(rastetovka.id.to_s) %>
-            <%= rastetovka.name %><br/>
-            ------------<br/>
-          <% end %>
-        <% end %>
+      <% driver.raztentovkas.each do |rastentovka| %>
+        - <%= rastentovka.name %><br>
+      <% end %>
     </td>
     <td><%= driver.ves %></td>
     <td><%= driver.objem %></td>

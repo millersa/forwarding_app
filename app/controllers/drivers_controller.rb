@@ -18,7 +18,6 @@ class DriversController < ApplicationController
   # GET /drivers/1.json
   def show
     @driver = Driver.find(params[:id])
-    @raztentovka_checkbox = Raztentovka.order('id ASC').all
    @marka = @driver.marka_id
    @marka = case @marka
      when 1 then "тентованный"
@@ -76,16 +75,11 @@ class DriversController < ApplicationController
   # GET /drivers/new
   # GET /drivers/new.json
   def new
-    
-   
     @driver = Driver.new
     #params[:driver][:rastentovka_ids] ||= []
-    @marka_select = Marka.order('id ASC').all
-    @raztentovka_checkbox = Raztentovka.order('id ASC').all
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @driver }
-    end
+    #@marka_select = Marka.order('id ASC').all
+    #@raztentovka_checkbox = Raztentovka.order('id ASC').all
+  
   end
 
   # GET /drivers/1/edit
@@ -97,11 +91,9 @@ class DriversController < ApplicationController
     @title = 'Редактирование водителя'
   end
 
-  # POST /drivers
-  # POST /drivers.json
+
   def create
     @driver = Driver.new(params[:driver])
-
       if @driver.save
         flash[:success] = 'Водитель был успешно добавлен.'
         redirect_to @driver
