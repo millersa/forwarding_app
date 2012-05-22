@@ -79,7 +79,16 @@
 	               <%= f.password_field :password_confirmation, :class => "span3" %>
 	            </div>
 	          </div>
-
+<div class="control-group">
+	             <%= f.label :roles, "Доступ", :class => "control-label" %>
+	            <div class="controls">
+	              <% for role in User::ROLES %>
+				      <%= check_box_tag "user[roles][]", role, @user.roles.include?(role) %>
+				      <%= role.humanize %><br />
+				    <% end %>
+				    <%= hidden_field_tag "user[roles][]", "" %>
+	            </div>
+	          </div>
 	          <!--<div class="field">
     <%= f.label :password %><br />
     <%= f.password_field :password %>

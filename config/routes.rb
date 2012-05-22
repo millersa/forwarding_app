@@ -2,6 +2,7 @@ ForwardingApp::Application.routes.draw do
 
 
 
+  resources :statistics
   resources :drivers
 
   resources :companies
@@ -17,6 +18,7 @@ ForwardingApp::Application.routes.draw do
    post 'tenders/updatetipkuzova_radio/:objemJs&:vesJs&:markaJs', :controller=>'tenders', :action => 'update_tipkuzova_radio'
    post 'tenders/updaterastentovka_checkbox/:objemJs&:vesJs&:markaJs&:tipkuzovaJs', :controller=>'tenders', :action => 'update_rastentovka_checkbox'
    post 'tenders/updatedriverdata/:objemJs&:vesJs&:markaJs&:tipkuzovaJs&:rastentovkaJs', :controller=>'tenders', :action => 'update_driver_data'
+   post 'statistics/updatestats/:period', :controller=>'statistics', :action => 'update_stats_period'
    
 
   resources :sessions, :only => [:new, :create, :destroy]

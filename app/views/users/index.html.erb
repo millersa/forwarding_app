@@ -1,5 +1,5 @@
 <h3>Список сотрудников</h3>
-
+<% if !@users.blank? %>
 <%= will_paginate @users, previous_label: h("<"), next_label: h(">") %>
 
   <table class="table table-bordered table-striped">
@@ -46,3 +46,9 @@
 <%= link_to 'Добавить сотрудника', new_user_path, :class => "btn btn-success" %>
 
 <%= will_paginate @users, previous_label: h("<"), next_label: h(">") %>
+<% else %>
+<br>
+ <div class="alert alert-info">
+              <a class="close" data-dismiss="alert"></a>
+           Таблица не заполнена</div>
+<% end %>

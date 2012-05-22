@@ -1,134 +1,375 @@
-   <div class="row">
-        <div class="span4 offset4">
-       <legend>Просмотр заявки № <%= @tender.id %></legend>
-<p>
-  <b>Компания:</b>
-  <% Company.all.each do |company| %>
-    <% if company.id == @tender.company_id %>
-    <%= company.organization %>
-    <% end %>
-  <% end %>
-</p>
+<style type="text/css">
+table {
+  max-width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: transparent;
+}
+.table {
+  width: 100%;
+  margin-bottom: 18px;
+}
+.table th,
+.table td {
+  padding: 2px;
+  line-height: 18px;
+  /*text-align: center;*/
+  vertical-align: top;
+  border-top: 1px solid #000000;
+}
+.table th {
+  font-weight: bold;
+}
+.table thead th {
+  vertical-align: bottom;
+}
+.table colgroup + thead tr:first-child th,
+.table colgroup + thead tr:first-child td,
+.table thead:first-child tr:first-child th,
+.table thead:first-child tr:first-child td {
+  border-top: 0;
+}
+.table tbody + tbody {
+  border-top: 2px solid #000000;
+}
+.table-condensed th,
+.table-condensed td {
+  padding: 1px 2px;
+}
+.table-bordered {
+  border: 1px solid #000000;
+  border-left: 0;
+  border-collapse: separate;
+  *border-collapse: collapsed;
+}
+body {
+    color: #000000;
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    font-size: 9px;
 
-<p>
-  <b>Стоимость:</b>
-  <%= @tender.price %>
-</p>
+}
+}
 
-<p>
-  <b>Маршрут:</b>
-  <%= @tender.route %>
-</p>
-
-<p>
-  <b>Форма оплаты:</b>
-  <%= @tender.form_oplata %>
-</p>
-
-<p>
-  <b>Адресс погрузки:</b>
-  <%= @tender.adress_pogruzka %>
-</p>
-
-<p>
-  <b>Адресс разгрузки:</b>
-  <%= @tender.adress_razgruzki %>
-</p>
-
-<p>
-  <b>Грузоотправитель:</b>
-  <%= @tender.gruzotpravitel %>
-</p>
-
-<p>
-  <b>Грузополучатель:</b>
-  <%= @tender.gruzopoluhatel %>
-</p>
-
-<p>
-<hr>
-<p>
-  <b>Ф.И.О:</b>
-  <% Driver.where("id=?", @tender.driver_id).each do |r| %>
-  <%= "#{r.lname} #{r.fname} #{r.oname}" %>
-</p>
-
-<p>
-  <b>Вес:</b>
-  <%= r.ves %>
-</p>
-
-<p>
-  <b>Объем:</b>
-  <%= r.objem %> куб/м
-</p>
-
-<p>
-  <b>Телефон:</b>
-  <% if  !r.phone %>
-  <%= r.phone = '' %> 
- <% else %>
-  <%= r.phone %> 
-  <% end %>
-</p>
-
-<p>
-  <b>Гос № а/м:</b>
-  <%= r.gosnomer %>
-</p>
-
-<p>
-  <b>Гос № п/п:</b>
-  <%= r.gosnomerp %>
-</p>
-
-<p>
-  <b>Паспорт:</b>
-  <%= "#{r.seriy}  #{r.nomerp}" %><br>
-  <%= "#{r.kemvidan}  #{r.kogdavidan}" %>
-</p>
-
-<p>
-  <b>Тип кузова:</b>
-  <% if r.tipkuzova == '1' %>
-             <%= r.tipkuzova = "попуприцеп" %>
-         <% end %>
-         <% if r.tipkuzova == '2' %>
-             <%= @driver.tipkuzova = "грузовик" %>
-         <% end %>
-         <% if r.tipkuzova == '3' %>
-             <%= r.tipkuzova = "сцепка" %>
-         <% end %>
-</p>
-
-<p>
-  <b>Марка:</b>
- <% Marka.where("id=?", r.marka).each do |marka| %>
-            <%= marka.name %>
-        <% end %>
-</p>
-
-<% end %>
-<hr>
-<p>
-  <b>Пользователь:</b>
-  <% User.all.each do |user| %>
-    <% if user.id == @tender.user_id %>
+</style>
+<div class="row">
+  <div class="span12">
+    <div class="well">
+    <legend>Просмотр заявки № <%= @tender.id %><br>
+Добавил пользователь:
+  <% @user.each do |user| %>
     <%= user.username %>
-    <% end %>
-  <% end %>
-</p>
-
-<p>
-  <b>Статус заявки:</b>
+  <% end %><br>
+  Статус заявки:
   <% if @tender.status %>
     <%=  status = 'Выполненая' %>
   <% else %>
   <%= status = 'Текущая' %>
   <% end %>
-</p>
-<hr>
-  <%= link_to 'Редактировать', edit_tender_path(@tender) %> |
-<%= link_to 'Список заявок', tenders_path %>
-     </div>
+    </legend>
+</div>
+  
+
+
+
+  
+
+
+    <!--<table class="table table-striped table-bordered table-condensed">
+      <thead>
+        <tr>
+        <th>…</th>
+        <th>…</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td>…</td>
+        <td>…</td>
+        </tr>
+      </tbody>
+    </table>-->
+
+      <div class="Mownfloatleft">
+        <%= image_tag("logo.png", :alt => "Транс ДАК", :width => "364", :height => "100") %>
+      </div>
+      <div class="Mownfloatright">
+      <table class="table table-bordblack table-condensed Mowntext">
+        <tbody>
+          <tr>
+          <td>22</td>
+          <td>Февраля</td>
+          <td>2012</td>
+          </tr>
+
+          <tr>
+          <td colspan="2">Договор-Заявка №</td>
+          <td>12/10</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <table class="table table-bordblack table-condensed Mowntext">
+        <tbody>
+          <tr>
+          <td>Контактное лицо</td>
+          <td> <% @user.each do |user| %>
+            <%= user.firstname %> 
+          </td>
+          <td><%= user.phone %> </td>
+          <% end %>
+          </tr>
+
+          <tr>
+          <td>Маршрут</td>
+          <td colspan="2"><%= @tender.route %></td>
+          </tr>
+        </tbody>
+    </table>
+
+    <b>1. Данные погрузки</b>
+    <table class="table table-bordblack table-condensed Mowntext">
+        <tbody>
+          <tr>
+          <td>Адрес погрузки</td>
+          <td colspan="2"><%= @tender.adress_pogruzka %></td>
+          </tr>
+
+          <tr>
+          <td>Дата и время</td>
+          <td>27.02.2012г.</td>
+          <td>17-00</td>
+          </tr>
+
+          <tr>
+          <td>Грузоотправитель</td>
+          <td colspan="2"><%= @tender.gruzotpravitel %></td>
+          </tr>
+
+          <tr>
+          <td>Контактное лицо</td>
+          <td>Антон</td>
+          <td>89236201044</td>
+          </tr>
+        </tbody>
+    </table>
+
+    <b>2. Данные разгрузки</b>
+    <table class="table table-bordblack table-condensed Mowntext">
+        <tbody>
+          <tr>
+          <td>Адрес разгрузки</td>
+          <td colspan="2"><%= @tender.adress_razgruzki %></td>
+          </tr>
+
+          <tr>
+          <td>Дата и время</td>
+          <td>27.02.2012г.</td>
+          <td>-</td>
+          </tr>
+
+          <tr>
+          <td>Грузополучатель&nbsp;</td>
+          <td colspan="2"><%= @tender.gruzopoluhatel %></td>
+          </tr>
+
+          <tr>
+          <td>Контактное лицо</td>
+          <td>Антон</td>
+          <td>89236201044</td>
+          </tr>
+        </tbody>
+    </table>
+
+    <b>3. Характеристика груза:</b>
+    <table class="table table-bordblack table-condensed Mowntext">
+      <thead>
+        <tr>
+        <td>Наименование</td>
+        <td>Кол-во мест</td>
+        <td>Вес (кг)</td>
+        <td>Объем (м3)</td>
+        <td>Режим (tC)</td>
+        <td>Габариты (м)</td>
+        <td>Тип упаковки</td>
+        <td>Оценочная стоимость (руб)</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <b>4. Данные на водителя и транспортное средство:</b>
+    <table class="table table-bordblack table-condensed Mowntext" >
+        <tbody>
+          <tr>
+          <td>Марка:</td>
+          <td>Скания</td>
+          <td>Тип кузова:</td>
+          <td><% @driver.each do |driver| %>
+              <% if driver.tipkuzova == '1' %>
+                 <%= driver.tipkuzova = "п/п" %>
+             <% end %>
+             <% if driver.tipkuzova == '2' %>
+                 <%= driver.tipkuzova = "грузовик" %>
+             <% end %>
+             <% if driver.tipkuzova == '3' %>
+                 <%= driver.tipkuzova = "сцепка" %>
+             <% end %>
+            
+          </td>
+          <td>Объем:</td>
+          <td><%= driver.objem %> Куб/м</td>
+          </tr>
+
+          <tr>
+          <td>Гос № а/м:</td>
+          <td colspan="2"><%= driver.gosnomer %></td>
+          <td>Гос № п/п:</td>
+          <td colspan="2"><%= driver.gosnomerp %></td>
+          <td>-</td>
+          </tr>
+
+          <tr>
+          <td>Ф.И.О. водителя:</td>
+          <td colspan="3"><%= "#{driver.lname} #{driver.fname} #{driver.oname}" %></td>
+          <td>Телефон:</td>
+          <td colspan="2"><%= driver.phone %></td>
+          </tr>
+
+          <tr>
+          <td>Паспорт:</td>
+          <td><%= driver.seriy %></td>
+          <td><%= driver.nomerp %></td>
+          <td colspan="3"><%= driver.kemvidan %></td>
+          <td><%= driver.kogdavidan %></td>
+          </tr>
+        </tbody>
+    </table>
+      <% end %>
+
+      <b>5. Порядок расчетов и стоимость услуг:</b>
+      <table class="table table-bordblack table-condensed Mowntext">
+        <tbody>
+          <tr>
+          <td>Стоимость:</td>
+          <td colspan="2">
+            <%= @tender.price %> 
+          </td>
+          </tr>
+
+          <tr>
+          <td>Форма оплаты:</td>
+          <td><%= @tender.form_oplata %></td>
+          <td>По ОТТН в теч 2-4 б/н</td>
+          </tr>
+        </tbody>
+    </table>
+
+    <b>6. Дополнительные условия:</b>
+      <table class="table table-bordblack table-condensed">
+        <tbody>
+          <tr>
+          <td>Доп. условия:</td>
+          <td>Нормативное время простоя ТС под загрузкой/разгрузкой до 12 часов.</td>
+          </tr>
+
+          <tr>
+          <td>Сверхнормативная задержка ТС:</td>
+          <td>1 000 руб./сут. (оплачивается только при наличии документов (ТН, ТТН, путевой лист) с отметкой грузополучателя/грузоотправителя о факте простоя).  
+          «Перевозчик» несет ответственность за опоздание автотранспорта под загрузку/разгрузку: штраф в размере 2 000 руб./час. Опоздание ТС на 3 часа и более, приравнивается к срыву – штраф в размере 20% от стоимости (п.5.1.) данного Договора-Заявки. Оплата штрафа не освобождает стороны от обязанностей и ответственности по настоящему договору.
+          </td>
+          </tr>
+
+          <tr>
+          <td>Условия получения:</td>
+          <td>Водителю на погрузке предъявить паспорт и все необходимые документы.</td>
+          </tr>
+
+          <tr>
+          <td>Прочие условия:</td>
+          <td>«Перевозчик»  действует согласно «Правилам перевозок грузов» утвержденным Постановлением Правительства РФ от 15.04.2011 № 272.
+          «Перевозчик» несет ответственность за все убытки, причиненные «Заказчику», а также, за убытки вызванные: а) отказом от договора, менее чем за 24 часа – штраф в размере 20% от стоимости (п.5.1.) данного Договора-Заявки;
+          б) отказом от договора, когда отказ от договора-заявки поступил после заявленного времени подачи транспортного средства – штраф в размере 50% от стоимости (п.5.1.) данного Договора-Заявки. 
+          Оплата штрафа не освобождает стороны от обязанностей и ответственности по настоящему договору. Штраф за отсутствие у водителя, выданных транспортных и товаросопроводительных документов или не правильно заполненных: 2000 руб.
+          </td>
+          </tr>
+        </tbody>
+    </table>
+   <div class="Mownclear"></div>
+   <div class="MownfloatleftP">
+      <b>Заказчик:</b>
+       <div class="Mownforsignature">
+      ООО АТП «ТРАНСДАК»<br>
+      Юр. Адрес: 454126, г. Челябинск, ул. Смирных, 15 «А»<br>
+      Почт. Адрес 454108, г. Челябинск, ул. Тухачевского,  6<br>
+      Тел. /Факс (351) 2250767<br>
+      ИНН 7453200995 КПП 745301001 ОГРН 1087453009555<br>
+      р/с 40702810107110005482 в ОАО «Челиндбанк»<br>
+      г. Челябинск<br>
+      к/с 30101810400000000711 БИК 047501711<br>
+      E-mail: 2250767@mail.ru<br>
+<br>
+      Подпись: 
+
+       </div>
+      </div>
+
+    <div class="MownfloatrightP">
+
+        <b>Исполнитель:</b>
+      <div class="Mownforsignature">
+      ООО АТП «ТРАНСДАК»<br>
+      Юр. Адрес: 454126, г. Челябинск, ул. Смирных, 15 «А»<br>
+      Почт. Адрес 454108, г. Челябинск, ул. Тухачевского,  6<br>
+      Тел. /Факс (351) 2250767<br>
+      ИНН 7453200995 КПП 745301001 ОГРН 1087453009555<br>
+      р/с 40702810107110005482 в ОАО «Челиндбанк»<br>
+      г. Челябинск<br>
+      к/с 30101810400000000711 БИК 047501711<br>
+      E-mail: 2250767@mail.ru<br>
+<br>
+      Подпись: 
+
+       </div>
+    </div>
+
+    
+      
+
+
+
     </div> 
+    </div> 
+    <div id="MownProbel"></div>
+<div class="Mownprint">
+
+
+  <%= link_to 'Редактировать', edit_tender_path(@tender), :class => "btn" %>
+<%= link_to 'Список заявок', tenders_path, :class => "btn" %>
+     </div>
+
+<input type="button" class="MownprintBtn btn btn-info" onclick="print_page();" value="Напечатать страницу" />
+<script type="text/javascript">
+<!--
+function print_page() {
+  $(".well").hide();//скрываем
+  $("#Mownhide").hide();//верхняя панель управления
+  $(".Mownprint").hide();//скрываем кнопки
+  $(".MownprintBtn").hide();//скрываем кнопки
+  $("footer").hide();//скрываем подвал
+
+ // window.print();
+}
+-->
+</script>

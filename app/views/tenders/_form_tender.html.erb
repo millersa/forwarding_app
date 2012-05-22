@@ -5,7 +5,7 @@
 	          <div class="control-group">
 	             <%= f.label :company_id, "Компания", :class => "control-label" %>
 	            <div class="controls">
-	              <%= f.collection_select :company_id, Company.order('organization ASC').all, :id, :organization, :prompt => 'Выберите компанию' %>
+	              <%= f.collection_select :company_id, Company.where("user_id=?", current_user).order('organization ASC').all, :id, :organization, :prompt => 'Выберите компанию' %>
 	            </div>
 	          </div>
 	          <div class="control-group">

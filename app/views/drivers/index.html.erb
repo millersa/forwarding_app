@@ -1,5 +1,5 @@
 <h3>Список водителей</h3>
-
+<% if !@drivers.blank? %>
 <%= will_paginate @drivers, previous_label: h("<"), next_label: h(">") %>
 
   <table class="table table-bordered table-striped">
@@ -70,3 +70,10 @@
 <%= link_to 'Добавить водителя', new_driver_path, :class => "btn btn-success" %>
 
 <%= will_paginate @drivers, previous_label: h("<"), next_label: h(">") %>
+<% else %>
+<br>
+ <div class="alert alert-info">
+              <a class="close" data-dismiss="alert"></a>
+           Таблица не заполнена</div>
+<%= link_to 'Добавить водителя', new_driver_path, :class => "btn btn-success" %>           
+<% end %>

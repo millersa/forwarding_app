@@ -1,7 +1,7 @@
 
 <h3>Список компаний</h3>
-
-<%= will_paginate %>
+<% if !@companies.blank? %>
+ <%= will_paginate @companies, previous_label: h("<"), next_label: h(">") %>
 
   <table class="table table-bordered table-striped">
     <thead>
@@ -33,4 +33,11 @@
  
 <%= link_to 'Добавить компанию', new_company_path, :class => "btn btn-success" %>
 
-<%= will_paginate %>
+ <%= will_paginate @companies, previous_label: h("<"), next_label: h(">") %>
+ <% else %>
+<br>
+ <div class="alert alert-info">
+              <a class="close" data-dismiss="alert"></a>
+           Таблица не заполнена</div>
+           <%= link_to 'Добавить компанию', new_company_path, :class => "btn btn-success" %>
+<% end %>

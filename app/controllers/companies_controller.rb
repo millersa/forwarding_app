@@ -1,11 +1,12 @@
 #coding: utf-8
 class CompaniesController < ApplicationController
   before_filter :signed_in_user
-
+load_and_authorize_resource
   # GET /companies
   # GET /companies.json
   def index
-    @companies = Company.paginate(page: params[:page])
+    #@companies = Company.paginate(page: params[:page])
+    @companies = Company.where("user_id=?", current_user).page(params[:page]).per_page(10)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,7 +17,7 @@ class CompaniesController < ApplicationController
   # GET /companies/1
   # GET /companies/1.json
   def show
-    @company = Company.find(params[:id])
+   
 
     respond_to do |format|
       format.html # show.html.erb
@@ -27,7 +28,7 @@ class CompaniesController < ApplicationController
   # GET /companies/new
   # GET /companies/new.json
   def new
-    @company = Company.new
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @company }
@@ -36,7 +37,7 @@ class CompaniesController < ApplicationController
 
   # GET /companies/1/edit
   def edit
-    @company = Company.find(params[:id])
+    
   end
 
   # POST /companies
@@ -80,7 +81,7 @@ class CompaniesController < ApplicationController
   # DELETE /companies/1
   # DELETE /companies/1.json
   def destroy
-    @company = Company.find(params[:id])
+    authorize! :destroy, @user
     @company.destroy
 
     respond_to do |format|

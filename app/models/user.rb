@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
-	attr_accessible :username, :phone, :firstname, :lastname, :otchestvo, :sex, :datebirth, :doljnost, :datework, :seriy, :nomer, :vidan, :password, :password_confirmation
+	#rolify
+  
+	attr_accessible :username, :roles, :phone, :firstname, :lastname, :otchestvo, :sex, :datebirth, :doljnost, :datework, :seriy, :nomer, :vidan, :password, :password_confirmation
   has_secure_password
 
   	validates :firstname, :presence => true
@@ -26,7 +28,22 @@ class User < ActiveRecord::Base
 
    has_many :companies
    has_many :tenders
-   
+
+  scope :with_role, lambda { |role| {:conditions => "roles_mask & #{2**ROLES.index(role.to_s)} > 0"} }
+  
+  ROLES = %w[sadmin admin worker]
+  
+  def roles=(roles)
+    self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.sum
+  end
+  
+  def roles
+    ROLES.reject { |r| ((roles_mask || 0) & 2**ROLES.index(r)).zero? }
+  end
+  
+  def role?(role)
+    roles.include? role.to_s
+  end
 
    private
 

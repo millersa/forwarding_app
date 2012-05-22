@@ -1,21 +1,22 @@
 # coding: utf-8
 class UsersController < ApplicationController
   before_filter :signed_in_user
+load_and_authorize_resource
 
   def new
   	@title = "Добавление сотрудника"
   	@legend = "Добавление сотрудника"
-  	@user = User.new
+  	
   end
 
   def show
   	@title = "Данные сотрудника"
-    @user = User.find(params[:id])
+    
   end
 
 
   def create
-    @user = User.new(params[:user])
+   
     if @user.save
       flash[:success] = "Сотрудник был успешно добавлен."
       redirect_to @user
@@ -26,6 +27,7 @@ class UsersController < ApplicationController
 end
 
   def index #Вывод всех сотрудников
+
   	@title = "Список сотрудников"
     @users = User.order("datework").page(params[:page]).per_page(7)
     respond_to do |format|
@@ -35,13 +37,14 @@ end
   end
 
   def edit 
+    
   	@title = "Редактирование сотрудника"
   	@legend = "Редактирование карточки сотрудника"
-  	@user = User.find(params[:id])	
+  
   end
 
   def destroy #удаление
-  	@user = User.find(params[:id])
+  	
     flash[:success] = "Сотрудник удален."
   	@user.destroy
  
@@ -52,7 +55,7 @@ end
   end
 
 def update  #Обновление
-  @user = User.find(params[:id])
+ 
  
   #respond_to do |format|
     if @user.update_attributes(params[:user])
@@ -70,5 +73,7 @@ def update  #Обновление
    # end
   end
 end
+
+
 
 end

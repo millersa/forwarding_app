@@ -27,7 +27,11 @@
 
 <p>
   <b>Марка:</b>
-  <%= @marka %>
+   <% Marka.all.each do |marka| %>
+    <% if marka.id == @driver.marka_id %>
+    <%= marka.name %>
+    <% end %>
+  <% end %>
 </p>
 
 <p>
