@@ -26,7 +26,7 @@ class Driver < ActiveRecord::Base
 
 	#serialize :rastentovka_ids, Array
 
-	has_many :categorizations
+	has_many :categorizations, :dependent => :destroy
  	has_many :raztentovkas, through: :categorizations
 	#before_validation :update_rastentovka_ids
 

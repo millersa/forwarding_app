@@ -33,12 +33,14 @@ end
 
   def index
     @tenders = Tender.where("status=? AND user_id=?", false, current_user).page(params[:page]).per_page(10)
+    @admin_tenders = Tender.where("status=?", false).page(params[:page]).per_page(10)
   	@title = "Главная"
     
   end
 
   def done
     @tenders = Tender.where("status=? AND user_id=?", true, current_user).page(params[:page]).per_page(10)
+    @admin_tenders = Tender.where("status=?", false).page(params[:page]).per_page(10)
     @title = "Главная"
   end
 

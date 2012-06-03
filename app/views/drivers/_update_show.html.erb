@@ -1,0 +1,91 @@
+ <% if @driversJs %>
+ <% @driversJs.each do |driver| %>
+<form class="form-horizontal">
+         <fieldset>
+          <h4>Контакты</h4><br>
+            <div class="control-group">
+              <label class="control-label">Телефон</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<%= driver.phone %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Другое</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<%= driver.contacts %>" type="text">
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+          <h4>Информация о транспортном средстве</h4><br>
+            <div class="control-group">
+              <label class="control-label">Грузоподъемность</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<%= driver.ves %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Объем</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<%= driver.objem %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Гос № а/м</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<%= driver.gosnomer %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Гос № п/п</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<%= driver.gosnomerp %>" type="text">
+              </div>
+            </div>
+             <div class="control-group">
+              <label class="control-label">Тип кузова</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<% if driver.tipkuzova == '1' %><%= driver.tipkuzova = "попуприцеп" %><% end %><% if driver.tipkuzova == '2' %><%= driver.tipkuzova = "грузовик" %><% end %><% if driver.tipkuzova == '3' %><%= driver.tipkuzova = "сцепка" %> <% end %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+             <label class="control-label">Растентовка</label>
+                <div class="controls">
+                  <div style="width:260px; height:100px; overflow:auto; border:solid 1px #C3E4FE;" class="checkbox">
+                     <%= hidden_field_tag "driver[raztentovka_ids][]", nil %>
+                    <% Raztentovka.all.each do |rastentovka| %>
+                      <%= check_box_tag "driver[raztentovka_ids][]", rastentovka.id, @driver.raztentovka_ids.include?(rastentovka.id), id: dom_id(rastentovka) %>
+                      <%= rastentovka.name %><br>
+                    <% end %>
+                  </div>  
+              </div></div>
+          </fieldset>
+          <fieldset>
+          <h4>Паспортные данные</h4><br>
+            <div class="control-group">
+              <label class="control-label">Серия и номер</label>
+              <div class="controls">
+               <input name="fname" class="span1 uneditable-input" value="<%= driver.seriy %>" type="text">
+              <input name="fname" class="span1 uneditable-input" value="<%= driver.nomerp %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Кем выдан</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<%= driver.kemvidan %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Когда выдан</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<%= driver.kogdavidan %>" type="text">
+              </div>
+            </div>
+          </fieldset>
+</form>
+<% end %>
+
+<% else %>
+
+<%  end %>

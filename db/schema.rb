@@ -118,7 +118,6 @@ ActiveRecord::Schema.define(:version => 20120516030928) do
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.string   "encrypted_password"
-    t.string   "salt"
     t.string   "remember_token"
     t.string   "password_digest"
     t.string   "role"

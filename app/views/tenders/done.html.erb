@@ -17,7 +17,7 @@
      <h3>Выполненные</h3>
       <% if !@tenders.blank? %>
        <%= will_paginate @tenders, previous_label: h("<"), next_label: h(">") %>
-       <table class="table table-bordered table-striped">
+       <table class="table table-bordered table-striped Mowntext">
               <thead>
                 <tr>
                 <th>Компания</th>
@@ -27,9 +27,7 @@
                 <th>Грузополучатель</th>
                 <th>Адрес погрузки</th>
                 <th>Адрес разгрузки</th>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th colspan="3">Действия</th>
                 </tr>
               </thead>
               <tbody>
@@ -47,9 +45,9 @@
                 <td><%= tender.gruzopoluhatel %></td>
                 <td><%= tender.adress_pogruzka %></td>
                 <td><%= tender.adress_razgruzki %></td>
-                <td><%= link_to 'Показать', tender %></td>
-                <td><%= link_to 'Редактировать', edit_tender_path(tender) %></td>
-                <td><%= link_to 'Удалить', tender, confirm: 'Вы уверены?', method: :delete %></td>
+                <td><%= link_to 'Показать', tender, :class=>"btn-small btn-info" %></td>
+                <td><%= link_to 'Редактировать', edit_tender_path(tender), :class=>"btn-small btn-info" %></td>
+                <td><%= link_to 'Удалить', tender, :class=>"btn-small btn-danger", confirm: 'Вы уверены?', method: :delete %></td>
                 </tr>
                 <% end %>
               </tbody>

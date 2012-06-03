@@ -1,41 +1,41 @@
-<h3>Список сотрудников</h3>
+ <div class="row">
+  <h3>Список сотрудников</h3>
+    <div class="span6">
 <% if !@users.blank? %>
 <%= will_paginate @users, previous_label: h("<"), next_label: h(">") %>
 
-  <table class="table table-bordered table-striped">
+  <table class="table table-bordered table-striped Mowntext">
     <thead>
       <tr>
         <th>Логин</th>
-        <th>Имя</th>
         <th>Фамилия</th>
+        <th>Имя</th>
         <th>Отчество</th>
         <th>Должность</th>
-        <th>Пол</th>
+        <!-- <th>Пол</th>
         <th>Телефон</th>
         <th>Дата рождения</th>
         <th>Дата приема</th>
-        <th>Паспортные данные</th>
-        <th></th>
-        <th></th>
-        <th></th>
+        <th>Паспортные данные</th>     -->
+        <th colspan="3">Действия</th>
       </tr>
     </thead>
     <tbody>
       <% @users.each do |user| %>
       <tr>
         <td><%= user.username %></td>
-        <td><%= user.firstname %></td>
         <td><%= user.lastname %></td>
+        <td><%= user.firstname %></td>
         <td><%= user.otchestvo %></td>
         <td><%= user.doljnost %></td>
-        <td><%= user.sex %></td>
+       <!--  <td><%= user.sex %></td>
         <td><%= user.phone %></td>
         <td><%= user.datebirth %></td>
         <td><%= user.datework %></td>
-        <td><%= user.seriy %> <%= user.nomer %><br/><%= user.vidan %></td>
-        <td><%= link_to 'Посмотреть', user %></td>
-        <td><%= link_to 'Редактировать', edit_user_path(user) %></td>
-        <td><%= link_to 'Удалить', user, :confirm => 'Вы уверены?',
+        <td><%= user.seriy %> <%= user.nomer %><br/><%= user.vidan %></td> -->
+        <td><a id="jstr" class="btn-small btn-info" href="#<%= user.id %>">Показать</a></td>
+        <td><%= link_to 'Редактировать', edit_user_path(user), :class=>"btn-small btn-info" %></td>
+        <td><%= link_to 'Удалить', user, :class=>"btn-small btn-danger", :confirm => 'Вы уверены?',
                                      :method => :delete %></td>
       </tr>
       <% end %>
@@ -51,4 +51,37 @@
  <div class="alert alert-info">
               <a class="close" data-dismiss="alert"></a>
            Таблица не заполнена</div>
+           <%= link_to 'Добавить сотрудника', new_user_path, :class => "btn btn-success" %>
 <% end %>
+</div>
+
+  <div class="offset1 span5">
+      <div class="well" id="update_data_id">
+         <%= render :partial => 'update_show' %>
+      </div>
+  </div>
+<script type="text/javascript">
+ jQuery(function($) {
+   $("#jstr").live("click",function() {
+      var id = $(this).attr('href').split('#');
+      //alert(id[1]);
+      if (id) {
+        jQuery.post('/users/update_data/' + id[1], function(data){
+         $('#update_data_id').html(data);
+         $('.span2').attr("disabled", "disable");
+         $('.span3').attr("disabled", "disable");
+         $('.span1').attr("disabled", "disable");
+         //$('.checkbox :input').attr("disabled", "disable")
+        })
+      }
+    else
+    {
+
+    }
+   return false;
+   });
+
+});
+
+</script>
+</div>

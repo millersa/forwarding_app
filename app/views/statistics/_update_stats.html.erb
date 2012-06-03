@@ -5,10 +5,10 @@
 <ul class="unstyled">
 				<li>Грузовладельцев: <span class="badge"><%= @companiesCount %></span></li>
 				<li>Грузоперевозчиков: <span class="badge"> <%= @driversACount %></span></li>
-				<li>Заявок: <span class="badge"><%= @tendersACount %></span></li>
+				<li>Заявок: <span class="badge"><%= @tendersACount %></span>  <span class="badge badge-warning"><% if !@tendersSum %> <% @tendersSum = 0  end %><%= @tendersSum %> руб.</span></li>
 					<ul>
-						<li>Текущие: <span class="badge"><%= @tendersADoCount %></span></li>
-						<li>Выполненные: <span class="badge"><%= @tendersADoneCount %></span></li>
+						<li>Текущие: <span class="badge"><%= @tendersADoCount %></span>  <span class="badge badge-warning"><% if !@tendersDoSum %> <% @tendersDoSum = 0  end %><%= @tendersDoSum %> руб.</span></li>
+						<li>Выполненные: <span class="badge"><%= @tendersADoneCount %></span>  <span class="badge badge-warning"><% if !@tendersDoneSum %> <% @tendersDoneSum = 0  end %><%= @tendersDoneSum %> руб.</span></li>
 					</ul>
 </ul>
 <% else %>

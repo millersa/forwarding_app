@@ -1,79 +1,102 @@
-<h3>Список водителей</h3>
-<% if !@drivers.blank? %>
-<%= will_paginate @drivers, previous_label: h("<"), next_label: h(">") %>
+ <div class="row">
+  <div class="well">
+    fg
+  </div>
+    <h3>Список водителей</h3>
+  <div class="span6">
+    <% if !@drivers.blank? %>
+    <%= will_paginate @drivers, previous_label: h("<"), next_label: h(">") %>
 
-  <table class="table table-bordered table-striped">
-    <thead>
-    <tr>
-    <th>Имя</th>
-    <th>Фамилия</th>
-    <th>Отчество</th>
-    <th>Телефон</th>
-    <th>Контакты</th>
-    <th>Марка</th>
-    <th>Тип кузова</th>
-    <th>Растентовка</th>
-    <th>Вес</th>
-    <th>Объем</th>
-    <th>Гос № а/м</th>
-    <th>Гос № п/п</th>
-    <th>Паспортные данные</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+      <table class="table table-bordered table-striped Mowntext">
+        <thead>
+        <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Отчество</th>
+        <!-- <th>Телефон</th>
+        <th>Контакты</th> -->
+        <th>Марка</th>
+        <!-- <th>Тип кузова</th>
+        <th>Растентовка</th>
+        <th>Вес</th>
+        <th>Объем</th>
+        <th>Гос № а/м</th>
+        <th>Гос № п/п</th>
+        <th>Паспортные данные</th> -->
+        <th colspan="3">Действия</th>
+      </tr>
 
-<% @drivers.each do |driver| %>
-  <tr>
-    <td><%= driver.fname %></td>
-    <td><%= driver.lname %></td>
-    <td><%= driver.oname %></td>
-    <td><%= driver.phone %></td>
-    <td><%= driver.contacts %></td>       
-    <td>
-        <% @markaSpisok.each do |marka| %>
-            <% if marka.id == driver.marka_id %>
-            <%= marka.name %>
+    <% @drivers.each do |driver| %>
+      <tr>
+        <td><%= driver.fname %></td>
+        <td><%= driver.lname %></td>
+        <td><%= driver.oname %></td>      
+        <td>
+            <% @markaSpisok.each do |marka| %>
+                <% if marka.id == driver.marka_id %>
+                <%= marka.name %>
+                <% end %>
             <% end %>
-        <% end %>
-    </td>
-    <td>
-         <% if driver.tipkuzova == '1' %>
-             <%= driver.tipkuzova = "попуприцеп" %>
-         <% end %>
-         <% if driver.tipkuzova == '2' %>
-             <%= driver.tipkuzova = "грузовик" %>
-         <% end %>
-         <% if driver.tipkuzova == '3' %>
-             <%= driver.tipkuzova = "сцепка" %>
-         <% end %>
-    </td>
-    <td>
-      <% driver.raztentovkas.each do |rastentovka| %>
-        - <%= rastentovka.name %><br>
-      <% end %>
-    </td>
-    <td><%= driver.ves %></td>
-    <td><%= driver.objem %></td>
-    <td><%= driver.gosnomer %></td>
-    <td><%= driver.gosnomerp %></td>
-    <td><%= driver.seriy %> <%= driver.nomerp %><br/><%= driver.kemvidan %><br/><%= driver.kogdavidan %></td>
-    <td><%= link_to 'Показать', driver %></td>
-    <td><%= link_to 'Редактировать', edit_driver_path(driver) %></td>
-    <td><%= link_to 'Удалить', driver, confirm: 'Вы уверены?', method: :delete %></td>
-  </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <br />
- 
-<%= link_to 'Добавить водителя', new_driver_path, :class => "btn btn-success" %>
+        </td>
+    
+       <!-- <td>
+          <% driver.raztentovkas.each do |rastentovka| %>
+            - <%= rastentovka.name %><br>
+          <% end %>
+        </td> -->
+      <!--   <td><%= driver.ves %></td>
+        <td><%= driver.objem %></td>
+        <td><%= driver.gosnomer %></td>
+        <td><%= driver.gosnomerp %></td>
+        <td><%= driver.seriy %> <%= driver.nomerp %><br/><%= driver.kemvidan %><br/><%= driver.kogdavidan %></td> -->
+        <td><a id="jstr" class="btn-small btn-info" href="#<%= driver.id %>">Показать</a></td>
+        <td><%= link_to 'Редактировать', edit_driver_path(driver), :class=>"btn-small btn-info" %></td>
+        <td><%= link_to 'Удалить', driver,  :class=>"btn-small btn-danger",  confirm: 'Вы уверены?', method: :delete %></td>
+      </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <br />
+     
+    <%= link_to 'Добавить водителя', new_driver_path, :class => "btn btn-success" %>
 
-<%= will_paginate @drivers, previous_label: h("<"), next_label: h(">") %>
-<% else %>
-<br>
- <div class="alert alert-info">
-              <a class="close" data-dismiss="alert"></a>
-           Таблица не заполнена</div>
-<%= link_to 'Добавить водителя', new_driver_path, :class => "btn btn-success" %>           
-<% end %>
+    <%= will_paginate @drivers, previous_label: h("<"), next_label: h(">") %>
+    <% else %>
+    <br>
+     <div class="alert alert-info">
+                  <a class="close" data-dismiss="alert"></a>
+               Таблица не заполнена
+      </div>
+    <%= link_to 'Добавить водителя', new_driver_path, :class => "btn btn-success" %>           
+    <% end %>
+  </div>
+
+  <div class="offset1 span5">
+      <div class="well" id="update_data_id">
+         <%= render :partial => 'update_show' %>
+      </div>
+  </div>
+<script type="text/javascript">
+ jQuery(function($) {
+   $("#jstr").live("click",function() {
+      var id = $(this).attr('href').split('#');
+      //alert(id[1]);
+      if (id) {
+        jQuery.post('/drivers/update_data/' + id[1], function(data){
+         $('#update_data_id').html(data);
+         $('.span2').attr("disabled", "disable");
+         $('.span1').attr("disabled", "disable");
+         //$('.checkbox :input').attr("disabled", "disable")
+        })
+      }
+    else
+    {
+
+    }
+   return false;
+   });
+
+});
+
+</script>
+</div>

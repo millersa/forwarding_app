@@ -17,13 +17,13 @@ class DriversController < ApplicationController
 
   # GET /drivers/1
   # GET /drivers/1.json
-  def show
-    @title = 'Просмотр водителя'
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @driver }
-    end
-  end
+  # def show
+  #   @title = 'Просмотр водителя'
+  #   respond_to do |format|
+  #     format.html # show.html.erb
+  #     format.json { render json: @driver }
+  #   end
+  # end
 
   # GET /drivers/new
   # GET /drivers/new.json
@@ -49,7 +49,7 @@ class DriversController < ApplicationController
 
       if @driver.save
         flash[:success] = 'Водитель был успешно добавлен.'
-        redirect_to @driver
+        redirect_to drivers_path
       else
        render 'new'
     end
@@ -61,7 +61,7 @@ class DriversController < ApplicationController
     
       if @driver.update_attributes(params[:driver])
         flash[:success] = 'Водитель был успешно обновлен.'
-        redirect_to @driver
+        redirect_to drivers_path
       else
        render 'edit'
     end
@@ -79,5 +79,9 @@ class DriversController < ApplicationController
     end
   end
 
+def updateShow
+  @driversJs = Driver.where('id=?', "#{params[:id]}")
+  render :partial => "update_show", :locals => { :driversJs =>  @driversJs }
+end
 
 end

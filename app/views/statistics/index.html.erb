@@ -7,10 +7,10 @@
 			<ul class="unstyled">
 				<li>Грузовладельцев: <span class="badge"><%= @companysCount %></span></li>
 				<li>Грузоперевозчиков: <span class="badge"> <%= @driversCount %></span></li>
-				<li>Заявок: <span class="badge"><%= @tendersCount %></span></li>
+				<li>Заявок: <span class="badge"><%= @tendersCount %></span>  <span class="badge badge-warning"><%= @tendersSum  %> руб.</span></li>
 					<ul>
-						<li>Текущие: <span class="badge"><%= @tendersDoCount %></span></li>
-						<li>Выполненные: <span class="badge"><%= @tendersDoneCount %></span></li>
+						<li>Текущие: <span class="badge"><%= @tendersDoCount %></span>  <span class="badge badge-warning"><%= @tendersDoSum %> руб.</span></li>
+						<li>Выполненные: <span class="badge"><%= @tendersDoneCount %></span>  <span class="badge badge-warning"><%= @tendersDoneSum  %> руб.</span></li>
 					</ul>
 				<li>Пользователей: <span class="badge"><%= @usersCount %></span></li>
 					<ul>
@@ -26,11 +26,19 @@
 <div class="row">
 	<div class="offset1 span5">
 		<div class="well">
-			<a class="Mownperiod" href="#today">За сегодня</a><br>
-			<a class="Mownperiod" href="#yesterday">За вчера</a><br>
-			<a class="Mownperiod" href="#week">За неделю</a><br>
-			<a class="Mownperiod" href="#month">За месяц</a><br>
-			<a class="Mownperiod" href="#year">За год</a><br><br><br>
+			<div class="pull-right">
+				<div class="controls">
+	               <%= collection_select :filter, :user, @usersList, :id, :FIO, :prompt => 'Все пользователи' %>
+	            </div>
+			</div>
+			<div calss="pull-left">
+				<a class="Mownperiod" href="#today">За сегодня</a><br>
+				<a class="Mownperiod" href="#yesterday">За вчера</a><br>
+				<a class="Mownperiod" href="#week">За неделю</a><br>
+				<a class="Mownperiod" href="#month">За месяц</a><br>
+				<a class="Mownperiod" href="#year">За год</a><br><br><br>
+			</div>
+		
    		</div>	
    	</div>
 	<div class="span4">
@@ -44,12 +52,16 @@ jQuery(function($) {
 
   $("a.Mownperiod").live("click",function() {
     
-    var period = $(this).attr('href').split('#');;
-    //alert(period[1]);
-    if (period) {
+    var user_id = $('#filter_user :selected').val();
+    if (!user_id){
+ 	user_id = "all"
+    } 
+    var period = $(this).attr('href').split('#');
+    //alert(user_id);
+    if (period && user_id) {
      // var vesJs = $('#filter_ves :selected').text();
    //alert(vesJs);
-    jQuery.post('/statistics/updatestats/' + period[1], function(data){
+    jQuery.post('/statistics/updatestats/' + period[1] + '&' + user_id, function(data){
       // $('#filter_marka').removeAttr("disabled");
         $("#update_stat_id").html(data);
        // alert(data);
@@ -67,14 +79,3 @@ jQuery(function($) {
 }); //закрытие $
 
 </script>
-<%= now = Time.now.to_date  %><br>
-<%= now.year %><br>
-<%= -1.month.from_now %><br>
-<%= DateTime.parse(Time.now.to_s) %><br>y
-<%= Time.now.midnight %><br>
-<hr>
-<% Company.all.each do |company| %>
-	<% if company.updated_at >= -1.month.from_now %>
-	<%= company.updated_at %> <%= -1.month.from_now %><br>
-<% end %>
-<% end %>

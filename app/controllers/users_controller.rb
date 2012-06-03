@@ -19,7 +19,7 @@ load_and_authorize_resource
    
     if @user.save
       flash[:success] = "Сотрудник был успешно добавлен."
-      redirect_to @user
+      redirect_to users_path
     else
       @title = "Добавление сотрудника"
       render 'new'
@@ -60,7 +60,7 @@ def update  #Обновление
   #respond_to do |format|
     if @user.update_attributes(params[:user])
        flash[:success] = 'Карточка сотрудника была успешно обновлена.'
-       redirect_to @user
+       redirect_to users_path
        
       #format.html  { redirect_to(@user,
         #            :notice => 'Карточка сотрудника была успешно обновлена.') }
@@ -74,6 +74,10 @@ def update  #Обновление
   end
 end
 
+def updateShow
+  @usersJs = User.where('id=?', "#{params[:id]}")
+  render :partial => "update_show", :locals => { :usersJs =>  @usersJs }
+end
 
 
 end

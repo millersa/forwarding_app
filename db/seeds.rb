@@ -62,7 +62,8 @@
 # Raztentovka.create(:name=>"с бортами")
 # Raztentovka.create(:name=>"боковая с 2-х сторон")
 
-#District.create(:state_id=>1,:name=>"Hyderabad")
- Role.create(:name=>"sadmin")
- Role.create(:name=>"admin")
- Role.create(:name=>"worker")
+# #District.create(:state_id=>1,:name=>"Hyderabad")
+#  Role.create(:name=>"sadmin")
+#  Role.create(:name=>"admin")
+#  Role.create(:name=>"worker")
+User.create(:username=>"miller", :remember_token=>"wdg4CwthPxpHWaW4tB7xYA", :password_digest=>"$2a$10$SgSJtIU7FJs8kZktW271QeQTMOJvaJwtKyz5Hcx5DFrkM8daovwea", :roles_mask=>"1")
