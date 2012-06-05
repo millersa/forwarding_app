@@ -1,30 +1,39 @@
 <div class="row">
-	<div class="span4 offset4">
-		<div class="well">
-			<center>
-    			<h4>Всего в базе данных</h4><br>
-    		</center>
-			<ul class="unstyled">
-				<li>Грузовладельцев: <span class="badge"><%= @companysCount %></span></li>
-				<li>Грузоперевозчиков: <span class="badge"> <%= @driversCount %></span></li>
-				<li>Заявок: <span class="badge"><%= @tendersCount %></span>  <span class="badge badge-warning"><%= @tendersSum  %> руб.</span></li>
-					<ul>
-						<li>Текущие: <span class="badge"><%= @tendersDoCount %></span>  <span class="badge badge-warning"><%= @tendersDoSum %> руб.</span></li>
-						<li>Выполненные: <span class="badge"><%= @tendersDoneCount %></span>  <span class="badge badge-warning"><%= @tendersDoneSum  %> руб.</span></li>
-					</ul>
-				<li>Пользователей: <span class="badge"><%= @usersCount %></span></li>
-					<ul>
-						<li>Суперадминистраторов: <span class="badge"><%= @usersSaCount %></span></li>
-						<li>Администраторов: <span class="badge"><%= @usersACount %></span></li>
-						<li>Диспетчеров: <span class="badge"><%= @usersDCount %></span></li>
-					</ul>	
-			</ul>
+	<div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Меню</li>
+              <li class="active"><%= link_to "Общая", statistics_path %></li>
+              <li><%= link_to "По направлениям(пользо-ли)", stats_path %></li>
+              <li><%= link_to "По направлениям(компании)", statistics_path %></li>
+              <li><a href="#">Link</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div>
+        <div class="span9">
+			<div class="well">
+						<center>
+			    			<h4>Всего в базе данных</h4><br>
+			    		</center>
+						<ul class="unstyled">
+							<li>Грузовладельцев: <span class="badge"><%= @companysCount %></span></li>
+							<li>Грузоперевозчиков: <span class="badge"> <%= @driversCount %></span></li>
+							<li>Заявок: <span class="badge"><%= @tendersCount %></span>  <span class="badge badge-warning"><%= @tendersSum  %> руб.</span></li>
+								<ul>
+									<li>Текущие: <span class="badge"><%= @tendersDoCount %></span>  <span class="badge badge-warning"><%= @tendersDoSum %> руб.</span></li>
+									<li>Выполненные: <span class="badge"><%= @tendersDoneCount %></span>  <span class="badge badge-warning"><%= @tendersDoneSum  %> руб.</span></li>
+								</ul>
+							<li>Пользователей: <span class="badge"><%= @usersCount %></span></li>
+								<ul>
+									<li>Суперадминистраторов: <span class="badge"><%= @usersSaCount %></span></li>
+									<li>Администраторов: <span class="badge"><%= @usersACount %></span></li>
+									<li>Диспетчеров: <span class="badge"><%= @usersDCount %></span></li>
+								</ul>	
+						</ul>
 
-   		 </div>	
-	</div>
-</div>
-<div class="row">
-	<div class="offset1 span5">
+			   		 </div>	
+			   		 <div class="row">
+	<div class="span4">
 		<div class="well">
 			<div class="pull-right">
 				<div class="controls">
@@ -41,12 +50,16 @@
 		
    		</div>	
    	</div>
-	<div class="span4">
+	<div class="span5">
 		<div class="well" id="update_stat_id">
 			     <%= render :partial => 'update_stats'  %>
    		</div>   		
 	</div>
-</div>			
+</div>
+        </div>
+
+
+			
 <script type="text/javascript">
 jQuery(function($) {
 
@@ -79,3 +92,4 @@ jQuery(function($) {
 }); //закрытие $
 
 </script>
+</div>

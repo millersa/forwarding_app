@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Меню</li>
+              <li><%= link_to "Общая", statistics_path %></li>
+              <li class="active"><%= link_to "По направлениям(пользо-ли)", stats_path %></li>
+              <li><%= link_to "По направлениям(компании)", statistics_path %></li>
+              <li><a href="#">Link</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div>
+        <div class="span9">
+
+
+           
+        </div>
+
+      
+<script type="text/javascript">
+$(document).ready(function(){  
+    var line3 = [['Cup Holder Pinion Bob', 7], ['Generic Fog Lamp Marketing Gimmick', 9],
+    ['HDTV Receiver', 15], ['8 Track Control Module', 12],
+    ['SSPFM (Sealed Sludge Pump Fourier Modulator)', 3],
+    ['Transcender/Spice Rack', 6], ['Hair Spray Rear View Mirror Danger Indicator', 18]];
+ 
+    var plot3 = $.jqplot('chart3', [line3], {
+      series:[{renderer:$.jqplot.BarRenderer}],
+      axes: {
+        xaxis: {
+          renderer: $.jqplot.CategoryAxisRenderer,
+          label: 'Warranty Concern',
+          labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+          tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+          tickOptions: {
+              angle: -30,
+              fontFamily: 'Courier New',
+              fontSize: '9pt'
+          }
+           
+        },
+        yaxis: {
+          label: 'Occurance',
+          labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+        }
+      }
+    });
+     
+     
+});
+
+</script>
+</div>

@@ -1,0 +1,30 @@
+ <% if @companiesJs %>
+ <% @companiesJs.each do |company| %>
+<form class="form-horizontal">
+         <fieldset>
+          <h4>Контакты</h4><br>
+          <div class="control-group">
+              <label class="control-label">Контактное лицо</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<%= company.contlico %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Телефон</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<%= company.phone %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Груз</label>
+              <div class="controls">
+               <textarea id="textarea" class="span2" rows="3"><%= company.gruz %></textarea>
+              </div>
+            </div>
+          </fieldset>
+</form>
+<% end %>
+
+<% else %>
+
+<%  end %>

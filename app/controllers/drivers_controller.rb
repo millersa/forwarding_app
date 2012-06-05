@@ -5,7 +5,9 @@ class DriversController < ApplicationController
   load_and_authorize_resource
  
   def index
-    @drivers = Driver.page(params[:page]).per_page(7)
+    @search = Driver.search(params[:search])
+    #@products = @search.all
+    @drivers =  @search.page(params[:page]).per_page(7)
     @markaSpisok = Marka.order('id ASC').all
     @raztentovka_checkbox = Raztentovka.order('id ASC').all
     @title = 'Список водителей'

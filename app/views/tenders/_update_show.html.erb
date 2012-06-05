@@ -1,0 +1,157 @@
+ <% if @tendersJs %>
+ <% @tendersJs.each do |tender| %>
+<form class="form-horizontal">
+         <fieldset>
+          <h4>Информация на грузовладельца</h4><br>
+          <div class="control-group">
+              <label class="control-label">Контактное лицо</label>
+              <% company = Company.where('id=?', tender.company_id).first %>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<%= company.contlico %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Телефон</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<%= company.phone %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Груз</label>
+              <div class="controls">
+               <textarea id="textarea" class="span2" rows="3"><%= company.gruz %></textarea>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+          <h4>Данные погрузки</h4><br>
+          <div class="control-group">
+                <label class="control-label">Адрес погрузки</label>
+              <div class="controls">           
+                <input name="fname" class="span2 uneditable-input" value="<%= tender.adress_pogruzka %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+               <label class="control-label">Дата и время</label>
+              <div class="controls"> 
+              <input name="fname" class="span2 uneditable-input" value="<%= tender.date_pogruzki %>" type="text">
+              <input name="fname" class="span2 uneditable-input" value="<%= tender.vremy_pogruzki %>" type="text">          
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Грузоотправитель</label>
+              <div class="controls">           
+                <input name="fname" class="span2 uneditable-input" value="<%= tender.gruzotpravitel %>" type="text">
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+          <h4>Данные разгрузки</h4><br>
+          <div class="control-group">
+               <label class="control-label">Адрес разгрузки</label>
+              <div class="controls">           
+                 <input name="fname" class="span2 uneditable-input" value="<%= tender.adress_razgruzki %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+               <label class="control-label">Дата и время</label>
+              <div class="controls">           
+                <input name="fname" class="span2 uneditable-input" value="<%= tender.data_razgruzki %>" type="text">
+                 <input name="fname" class="span2 uneditable-input" value="<%= tender.vremy_razgruzlki %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+               <label class="control-label">Грузополучатель</label>
+              <div class="controls">           
+                 <input name="fname" class="span2 uneditable-input" value="<%= tender.gruzopoluhatel %>" type="text">
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+          <h4>Информация на водителя и транспортное средство</h4><br>
+          <% driver = Driver.where('id=?', tender.driver_id).first %>
+            <div class="control-group">
+              <label class="control-label">Грузоподъемность</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<%= driver.ves %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Объем</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<%= driver.objem %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Гос № а/м</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<%= driver.gosnomer %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Гос № п/п</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<%= driver.gosnomerp %>" type="text">
+              </div>
+            </div>
+             <div class="control-group">
+              <label class="control-label">Тип кузова</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<% if driver.tipkuzova == '1' %><%= driver.tipkuzova = "попуприцеп" %><% end %><% if driver.tipkuzova == '2' %><%= driver.tipkuzova = "грузовик" %><% end %><% if driver.tipkuzova == '3' %><%= driver.tipkuzova = "сцепка" %> <% end %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+             <label class="control-label">Растентовка</label>
+                <div class="controls">
+                  <div style="width:260px; height:100px; overflow:auto; border:solid 1px #C3E4FE;" class="checkbox">
+                     <%= hidden_field_tag "driver[raztentovka_ids][]", nil %>
+                    <% Raztentovka.all.each do |rastentovka| %>
+                      <%= check_box_tag "driver[raztentovka_ids][]", rastentovka.id, driver.raztentovka_ids.include?(rastentovka.id), id: dom_id(rastentovka) %>
+                      <%= rastentovka.name %><br>
+                    <% end %>
+                  </div>  
+              </div></div>
+            <div class="control-group">
+              <label class="control-label">Серия и номер</label>
+              <div class="controls">
+               <input name="fname" class="span1 uneditable-input" value="<%= driver.seriy %>" type="text">
+              <input name="fname" class="span1 uneditable-input" value="<%= driver.nomerp %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Кем выдан</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<%= driver.kemvidan %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Когда выдан</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<%= driver.kogdavidan %>" type="text">
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+          <h4>Порядок расчетов и стоимости услуг</h4><br>
+            <div class="control-group">
+              <label class="control-label">Стоимость</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<%= tender.price %>" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Форма оплаты</label>
+              <div class="controls">
+               <input name="fname" class="span2 uneditable-input" value="<%= tender.form_oplata %>" type="text"><br>
+               <input name="fname" class="span2 uneditable-input" value="<%= tender.forma_oplati2 %>" type="text">
+              </div>
+            </div>
+          </fieldset>
+</form>
+<% end %>
+
+<% else %>
+
+<%  end %>

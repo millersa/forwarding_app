@@ -16,14 +16,14 @@ load_and_authorize_resource
 
   # GET /companies/1
   # GET /companies/1.json
-  def show
+  # def show
    
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @company }
-    end
-  end
+  #   respond_to do |format|
+  #     format.html # show.html.erb
+  #     format.json { render json: @company }
+  #   end
+  # end
 
   # GET /companies/new
   # GET /companies/new.json
@@ -50,7 +50,7 @@ load_and_authorize_resource
         #format.html { redirect_to @company, notice: 'Компания была успешно добавлена.' }
         #format.json { render json: @company, status: :created, location: @company }
         flash[:success] = 'Компания была успешно добавлена.'
-        redirect_to @company
+        redirect_to companies_path
       else
         #format.html { render action: "new" }
         #format.json { render json: @company.errors, status: :unprocessable_entity }
@@ -69,7 +69,7 @@ load_and_authorize_resource
        # format.html { redirect_to @company, notice: 'Компания была успешно обновлена.' }
         #format.json { head :no_content }
         flash[:success] = 'Компания была успешно обновлена.'
-        redirect_to @company
+        redirect_to companies_path
       else
        # format.html { render action: "edit" }
         #format.json { render json: @company.errors, status: :unprocessable_entity }
@@ -89,4 +89,10 @@ load_and_authorize_resource
       format.json { head :no_content }
     end
   end
+
+  def updateShow
+  @companiesJs = Company.where('id=?', "#{params[:id]}")
+  render :partial => "update_show", :locals => { :companiesJs =>  @companiesJs }
+end
+
 end

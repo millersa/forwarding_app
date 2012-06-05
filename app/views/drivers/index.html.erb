@@ -1,6 +1,12 @@
  <div class="row">
-  <div class="well">
-    fg
+
+    <%= form_for @search, :class=>"well form-search" do |f| %>
+    <p>
+      <%= f.text_field :name_contains, :class=>"input-medium search-query" %>
+    </p>
+    <div class="form-actions">
+     <%= f.submit "Найти", :class => "btn" %>
+     <% end %>
   </div>
     <h3>Список водителей</h3>
   <div class="span6">

@@ -44,7 +44,60 @@
 				  </div></div>	
 
 
-				<div class="control-group">
+			 <div class="control-group">
+	             <%= f.label :nomer_tender, "Договор-заявка №", :class => "control-label" %>
+	            <div class="controls">           
+	              <%= f.text_field :nomer_tender, :class => "span2", :placeholder => "12/10" %>
+	            </div>
+	          </div>
+	          <div class="control-group">
+	             <%= f.label :route, "Маршрут", :class => "control-label" %>
+	            <div class="controls">           
+	              <%= f.text_field :route, :class => "span4", :placeholder => "г. Нижняя Тура - г. Новокузнецк" %>
+	            </div>
+	          </div>
+	          <!--  -->
+	          <div class="control-group">
+	             <%= f.label :adress_pogruzka, "Адрес погрузки", :class => "control-label" %>
+	            <div class="controls">           
+	              <%= f.text_field :adress_pogruzka, :class => "span4", :placeholder => "г. Нижняя Тура, ул. Малышева 59" %>
+	            </div>
+	          </div>
+	          <div class="control-group">
+	             <%= f.label :date_pogruzki, "Дата и время", :class => "control-label" %>
+	            <div class="controls">           
+	              <%= f.text_field :date_pogruzki, :class => "span2", :placeholder => "22/02/2012" %>
+	              <%= f.text_field :vremy_pogruzki, :class => "span2", :placeholder => "17-00" %>
+	            </div>
+	          </div>
+	          <div class="control-group">
+	             <%= f.label :gruzotpravitel, "Грузоотправитель", :class => "control-label" %>
+	            <div class="controls">           
+	              <%= f.text_field :gruzotpravitel, :class => "span4", :placeholder => "Амис Новокузнецк" %>
+	            </div>
+	          </div>
+	          <!--  -->
+	          <div class="control-group">
+	             <%= f.label :adress_razgruzki, "Адрес разгрузки", :class => "control-label" %>
+	            <div class="controls">           
+	              <%= f.text_field :adress_razgruzki, :class => "span4", :placeholder => "г. Новокузнецк" %>
+	            </div>
+	          </div>
+	          <div class="control-group">
+	             <%= f.label :data_razgruzki, "Дата и время", :class => "control-label" %>
+	            <div class="controls">           
+	              <%= f.text_field :data_razgruzki, :class => "span2", :placeholder => "22/02/2012" %>
+	              <%= f.text_field :vremy_razgruzlki, :class => "span2", :placeholder => "17-00" %>
+	            </div>
+	          </div>
+	          <div class="control-group">
+	             <%= f.label :gruzopoluhatel, "Грузополучатель", :class => "control-label" %>
+	            <div class="controls">           
+	              <%= f.text_field :gruzopoluhatel, :class => "span4", :placeholder => "Амис Новокузнецк" %>
+	            </div>
+	          </div>
+	          <!--  -->
+	          <div class="control-group">
 	             <%= f.label :price, "Стоимость", :class => "control-label" %>
 	            <div class="controls">           
 	              <%= f.text_field :price, :class => "span4", :placeholder => "73000т.р.(Семьдесят три тысячи рублей) из них 15000т.р. предоплата" %>
@@ -57,33 +110,9 @@
 	            </div>
 	          </div>
 	          <div class="control-group">
-	             <%= f.label :route, "Маршрут", :class => "control-label" %>
+	             <%= f.label :forma_oplati2, "Форма оплаты", :class => "control-label" %>
 	            <div class="controls">           
-	              <%= f.text_field :route, :class => "span4", :placeholder => "г. Нижняя Тура - г. Новокузнецк" %>
-	            </div>
-	          </div>
-	          <div class="control-group">
-	             <%= f.label :adress_pogruzka, "Адрес погрузки", :class => "control-label" %>
-	            <div class="controls">           
-	              <%= f.text_field :adress_pogruzka, :class => "span4", :placeholder => "г. Нижняя Тура, ул. Малышева 59" %>
-	            </div>
-	          </div>
-	          <div class="control-group">
-	             <%= f.label :adress_razgruzki, "Адрес разгрузки", :class => "control-label" %>
-	            <div class="controls">           
-	              <%= f.text_field :adress_razgruzki, :class => "span4", :placeholder => "г. Новокузнецк" %>
-	            </div>
-	          </div>
-	          <div class="control-group">
-	             <%= f.label :gruzotpravitel, "Грузоотправитель", :class => "control-label" %>
-	            <div class="controls">           
-	              <%= f.text_field :gruzotpravitel, :class => "span4", :placeholder => "Амис Новокузнецк" %>
-	            </div>
-	          </div>
-	          <div class="control-group">
-	             <%= f.label :gruzopoluhatel, "Грузополучатель", :class => "control-label" %>
-	            <div class="controls">           
-	              <%= f.text_field :gruzopoluhatel, :class => "span4", :placeholder => "Амис Новокузнецк" %>
+	              <%= f.text_field :forma_oplati2, :class => "span4", :placeholder => "По ОТТН в ткч 2-4 б/н" %>
 	            </div>
 	          </div>
 	          <div class="control-group">

@@ -26,7 +26,7 @@ class StatisticsController < ApplicationController
   	@title = "Статистика"
   end
 
-  def today(time, user)
+  def stats
 
   end
 

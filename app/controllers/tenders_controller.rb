@@ -24,7 +24,7 @@ class TendersController < ApplicationController
     @tender = current_user.tenders.build(params[:tender])
     if @tender.save
       flash[:success] = "Заявка была успешно добавлена."
-      redirect_to @tender
+      redirect_to tenders_path
     else
       @title = "Добавление заявки"
       render 'new'
@@ -59,7 +59,7 @@ end
   def update
    
     if @tender.update_attributes(params[:tender])
-      redirect_to @tender, notice: "Заявка успешно отредактирована."
+      redirect_to tenders_path, notice: "Заявка успешно отредактирована."
     else
       render :edit
     end
@@ -101,5 +101,15 @@ end
       AND tipkuzova = #{params[:tipkuzovaJs]} AND categorizations.raztentovka_id IN (#{params[:rastentovkaJs]}) ")
      render :partial => "update_driver", :locals => { :update_driver =>  @update_driver }
   end
+
+ def updateShow
+  @tendersJs = Tender.where('id=? AND status=?', "#{params[:id]}", false)
+  render :partial => "update_show", :locals => { :tendersJs =>  @tendersJs }
+end
+
+def updateShowT
+  @tendersJs = Tender.where('id=? AND status=?', "#{params[:id]}", true)
+  render :partial => "update_show", :locals => { :tendersJs =>  @tendersJs }
+end
 
 end

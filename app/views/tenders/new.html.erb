@@ -17,7 +17,12 @@
      </div>
     </div> 
 
-
+<style type="text/css">
+.errorJs {
+   border-color: #B94A48;
+    color: #B94A48;
+}
+</style>
      <script type="text/javascript">
       jQuery(function($) {
   $('#filter_objem').attr("disabled", "disable");
@@ -152,8 +157,12 @@
     return false;
   
   });
+ var nomer_tender = $('#tender_nomer_tender').val();
+  if (!nomer_tender) {
+    $('#tender_nomer_tender').AddClass()
+  } else{
 
-
+  };
 }); //закрытие $
 
 

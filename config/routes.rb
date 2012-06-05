@@ -21,11 +21,15 @@ ForwardingApp::Application.routes.draw do
    post 'statistics/updatestats/:period&:user_id', :controller=>'statistics', :action => 'update_stats_period'
    post 'drivers/update_data/:id', :controller=>'drivers', :action => 'updateShow'
    post 'users/update_data/:id', :controller=>'users', :action => 'updateShow'
+   post 'companies/update_data/:id', :controller=>'companies', :action => 'updateShow'
+   post 'tenders/update_data/:id', :controller=>'tenders', :action => 'updateShow'
+   post 'tenders/update_dataT/:id', :controller=>'tenders', :action => 'updateShowT'
    
 
   resources :sessions, :only => [:new, :create, :destroy]
 
   match '/adduser',  to: 'users#new'
+  match '/stats',  to: 'statistics#stats'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
   match '/newtender',  to: 'tenders#new'

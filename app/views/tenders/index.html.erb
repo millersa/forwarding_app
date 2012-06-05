@@ -16,22 +16,22 @@
       </div>
 
       <div class="row">
-        <div class="span8 offset2">
+         
       <h3>Текущие</h3>
-
+<div class="span6">
       <% if !@tenders.blank? %>
       <%= will_paginate @tenders, previous_label: h("<"), next_label: h(">") %>
        <table class="table table-bordered table-striped Mowntext">
               <thead>
                 <tr>
                 <th>Компания</th>
-                <th>Стоимость</th>
+                <!-- <th>Стоимость</th> -->
                 <th>Маршрут</th>
-                <th>Грузоотправитель</th>
-                <th>Грузополучатель</th>
-                <th>Адрес погрузки</th>
-                <th>Адрес разгрузки</th>
-                <th colspan="3">Действия</th>
+                <!-- <th>Грузоотправитель</th>
+                <th>Грузополучатель</th> -->
+                <!-- <th>Адрес погрузки</th>
+                <th>Адрес разгрузки</th> -->
+                <th colspan="4">Действия</th>
                 </tr>
               </thead>
               <tbody>
@@ -43,13 +43,14 @@
                         <% end %>
                     <% end %>
                </td>
-                <td><%= tender.price %></td>
+               <!--  <td><%= tender.price %></td> -->
                 <td><%= tender.route %></td>
-                <td><%= tender.gruzotpravitel %></td>
-                <td><%= tender.gruzopoluhatel %></td>
-                <td><%= tender.adress_pogruzka %></td>
-                <td><%= tender.adress_razgruzki %></td>
-                <td><%= link_to 'Показать', tender, :class=>"btn-small btn-info" %></td>
+               <!--  <td><%= tender.gruzotpravitel %></td>
+                <td><%= tender.gruzopoluhatel %></td> -->
+               <!--  <td><%= tender.adress_pogruzka %></td>
+                <td><%= tender.adress_razgruzki %></td> -->
+                <td><a id="jstr" class="btn-small btn-info" href="#<%= tender.id %>">Показать</a></td>
+                <td><%= link_to 'Печать', tender, :class=>"btn-small btn-info" %></td>
                 <td><%= link_to 'Редактировать', edit_tender_path(tender), :class=>"btn-small btn-info" %></td>
                 <td><%= link_to 'Удалить', tender, :class=>"btn-small btn-danger", confirm: 'Вы уверены?', method: :delete %></td>
                 </tr>
@@ -66,4 +67,35 @@
 
 
      </div>
+
+
+  <div class="offset1 span5">
+      <div class="well" id="update_data_id">
+         <%= render :partial => 'update_show' %>
+      </div>
+  </div>
+<script type="text/javascript">
+ jQuery(function($) {
+   $("#jstr").live("click",function() {
+      var id = $(this).attr('href').split('#');
+      //alert(id[1]);
+      if (id) {
+        jQuery.post('/tenders/update_data/' + id[1], function(data){
+         $('#update_data_id').html(data);
+         $('.span2').attr("disabled", "disable");
+         $('.span1').attr("disabled", "disable");
+         //$('.input-xlarge').attr("disabled", "disable");
+         //$('.checkbox :input').attr("disabled", "disable")
+        })
+      }
+    else
+    {
+
+    }
+   return false;
+   });
+
+});
+
+</script>
    </div>

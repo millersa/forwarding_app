@@ -1,5 +1,9 @@
-
+<div class="row">
+  <div class="well">
+    fg
+  </div>
 <h3>Список компаний</h3>
+<div class="span6">
 <% if !@companies.blank? %>
  <%= will_paginate @companies, previous_label: h("<"), next_label: h(">") %>
 
@@ -7,9 +11,9 @@
     <thead>
       <tr>
         <th>Организация</th>
-        <th>Контактное лицо</th>
+       <!--  <th>Контактное лицо</th>
         <th>Телефон</th>
-        <th>Груз</th>
+        <th>Груз</th> -->
         <th colspan="3">Действия</th>
       </tr>
     </thead>
@@ -17,10 +21,10 @@
       <% @companies.each do |company| %>
         <tr>
           <td><%= company.organization %></td>
-          <td><%= company.contlico %></td>
+          <!-- <td><%= company.contlico %></td>
           <td><%= company.phone %></td>
-          <td><%= company.gruz %></td>
-          <td><%= link_to 'Посмотреть', company, :class=>"btn-small btn-info" %></td>
+          <td><%= company.gruz %></td> -->
+          <td><a id="jstr" class="btn-small btn-info" href="#<%= company.id %>">Показать</a></td>
           <td><%= link_to 'Редактировать', edit_company_path(company), :class=>"btn-small btn-info" %></td>
           <td><%= link_to 'Удалить', company, :class=>"btn-small btn-danger", confirm: 'Вы уверены?', method: :delete %></td>
       </tr>
@@ -39,3 +43,34 @@
            Таблица не заполнена</div>
            <%= link_to 'Добавить компанию', new_company_path, :class => "btn btn-success" %>
 <% end %>
+</div>
+ <div class="offset1 span5">
+      <div class="well" id="update_data_id">
+         <%= render :partial => 'update_show' %>
+      </div>
+  </div>
+<script type="text/javascript">
+ jQuery(function($) {
+   $("#jstr").live("click",function() {
+      var id = $(this).attr('href').split('#');
+      //alert(id[1]);
+      if (id) {
+        jQuery.post('/companies/update_data/' + id[1], function(data){
+         $('#update_data_id').html(data);
+         $('.span2').attr("disabled", "disable");
+         $('.span1').attr("disabled", "disable");
+         //$('.input-xlarge').attr("disabled", "disable");
+         //$('.checkbox :input').attr("disabled", "disable")
+        })
+      }
+    else
+    {
+
+    }
+   return false;
+   });
+
+});
+
+</script>
+</div>
