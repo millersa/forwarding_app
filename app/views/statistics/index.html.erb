@@ -5,8 +5,8 @@
               <li class="nav-header">Меню</li>
               <li class="active"><%= link_to "Общая", statistics_path %></li>
               <li><%= link_to "По направлениям(пользо-ли)", stats_path %></li>
-              <li><%= link_to "По направлениям(компании)", statistics_path %></li>
-              <li><a href="#">Link</a></li>
+              <li><%= link_to "По направлениям(компании)", company_stats_path %></li>
+              <!-- <li><%= link_to "Отзывы", grade_stats_path %></li> -->
             </ul>
           </div><!--/.well -->
         </div>
@@ -56,6 +56,9 @@
    		</div>   		
 	</div>
 </div>
+ <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto">
+      <%= render :partial => 'update_stats_d'  %>
+ </div> 
         </div>
 
 
@@ -79,6 +82,11 @@ jQuery(function($) {
         $("#update_stat_id").html(data);
        // alert(data);
     })
+        jQuery.post('/statistics/updatestatsdiag/' + period[1] + '&' + user_id, function(data){
+      // $('#filter_marka').removeAttr("disabled");
+        $("#container").html(data);
+       // alert(data);
+    })
     }
     else {
       // $('#filter_marka').attr("disabled", "disable");
@@ -92,4 +100,5 @@ jQuery(function($) {
 }); //закрытие $
 
 </script>
+
 </div>

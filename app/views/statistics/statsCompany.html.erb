@@ -1,0 +1,196 @@
+<div class="row">
+  <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Меню</li>
+              <li><%= link_to "Общая", statistics_path %></li>
+              <li><%= link_to "По направлениям(пользо-ли)", stats_path %></li>
+              <li class="active"><%= link_to "По направлениям(компании)", company_stats_path %></li>
+              <!-- <li><%= link_to "Отзывы", grade_stats_path %></li> -->
+            </ul>
+          </div><!--/.well -->
+        </div>
+        <div class="span9">
+          <div class="well">
+            <center>
+                <h4>Общая статистика по заявкам направлениях</h4><br>
+              </center>
+            <ul class="unstyled">
+                <table>
+                <tr>
+                  <td>
+                <li>Запад</li>
+               
+                  <li>Компаний: <span class="badge"><%= @tendersCountCoZ %></span></li>
+                 
+               </td>
+                <td>
+                <li>Восток</li>
+                
+                  <li>Компаний: <span class="badge"><%= @tendersCountCoV %></span></li>
+                  
+               </td><td>
+                <li>Север</li>
+                
+                  <li>Компаний: <span class="badge"><%= @tendersCountCoS %></span></li>
+                 
+                </td><td>
+                <li>Юг</li>
+                
+                  <li>Компаний: <span class="badge"><%= @tendersCountCoY %></span></li>
+                 
+                
+              <!-- <li>Заявок: <span class="badge"><%= @tendersCount %></span>  <span class="badge badge-warning"><%= @tendersSum  %> руб.</span></li>
+                <ul>
+                  <li>Текущие: <span class="badge"><%= @tendersDoCount %></span>  <span class="badge badge-warning"><%= @tendersDoSum %> руб.</span></li>
+                  <li>Выполненные: <span class="badge"><%= @tendersDoneCount %></span>  <span class="badge badge-warning"><%= @tendersDoneSum  %> руб.</span></li>
+                </ul> -->
+              
+            </ul>
+ </td>
+                </tr>
+                </table>
+             </div> 
+             <div class="row">
+         <!--            <div class="span4">
+                        <div class="well">
+                            <div class="pull-right">
+                                <div class="controls">
+                                   <%= collection_select :filter, :user, @companysList, :id, :organization, :prompt => 'Все компании' %>
+                                </div>
+                            </div>
+                            <div calss="pull-left">
+                                <a class="Mownperiod" href="#today">За сегодня</a><br>
+                                <a class="Mownperiod" href="#yesterday">За вчера</a><br>
+                                <a class="Mownperiod" href="#week">За неделю</a><br>
+                                <a class="Mownperiod" href="#month">За месяц</a><br>
+                                <a class="Mownperiod" href="#year">За год</a><br><br><br>
+                            </div>
+                        
+                        </div>  
+                    </div> -->
+                    <div class="span5">
+          <!--               <div class="well" id="update_stat_id">
+                                 <%= render :partial => 'update_stats'  %>
+                        </div>   -->        
+                    </div>
+                </div>
+            <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>   
+        </div>
+
+      
+<script type="text/javascript">
+/*
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                type: 'column',
+                margin: [ 50, 50, 100, 80]
+            },
+            title: {
+                text: 'Количество компаний по направлениям'
+            },
+            xAxis: {
+                categories: [
+                    'Запад',
+                    'Восток',
+                    'Север',
+                    'Юг'
+          ],
+                labels: {
+                    rotation: -45,
+                    align: 'right',
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Количество компаний'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                formatter: function() {
+                    return '<b>'+ this.x +'</b><br/>'+
+                        'Количество компаний: '+ Highcharts.numberFormat(this.y, 1);
+                }
+            },
+                series: [{
+                name: 'Количество',
+                data: [<% if !@tendersCountCoZ %> <% @tendersCountCoZ = 0  end %><%= @tendersCountCoZ %>, <% if !@tendersCountCoV %> <% @tendersCountCoV = 0  end %><%= @tendersCountCoV %>, <% if !@tendersCountCoS %> <% @tendersCountCoS = 0  end %><%= @tendersCountCoS %>, <% if !@tendersCountCoY %> <% @tendersCountCoY = 0  end %><%= @tendersCountCoY %>],
+                dataLabels: {
+                    enabled: true,
+                    rotation: 0,
+                    color: '#000000',
+                    align: 'right',
+                    x: -25,
+                    y: -5,
+                    formatter: function() {
+                        return this.y;
+                    },
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }]
+        });
+    });
+    
+});*/
+var chart;
+$(document).ready(function() {
+  chart = new Highcharts.Chart({
+    chart: {
+      renderTo: 'container',
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false
+    },
+    title: {
+      text: 'Количество компаний по направлениям'
+    },
+    tooltip: {
+      formatter: function() {
+        return '<b>'+ this.point.name +'</b>: '+ this.y;//Количество компаний:
+      }
+    },
+           plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                showInLegend: true,
+                dataLabels: {
+                    enabled: true,
+                    color: '#000000',
+                    connectorColor: '#000000',
+                    formatter: function() {
+                        return '<b>'+ this.point.name +'</b>: '+ this.y;
+                    }
+                }
+            }
+        },
+    series: [{
+      type: 'pie',
+      name: 'Количество',
+      data: [
+        ['Запад',   <% if !@tendersCountCoZ %> <% @tendersCountCoZ = 0  end %><%= @tendersCountCoZ %>],
+        ['Восток',    <% if !@tendersCountCoV %> <% @tendersCountCoV = 0  end %><%= @tendersCountCoV %>],
+        ['Север',      <% if !@tendersCountCoS %> <% @tendersCountCoS = 0  end %><%= @tendersCountCoS %>],
+        ['Юг',    <% if !@tendersCountCoY %> <% @tendersCountCoY = 0  end %><%= @tendersCountCoY %>]     
+      ]
+    }]
+  });
+});
+
+    </script>
+</div>

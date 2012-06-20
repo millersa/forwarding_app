@@ -84,7 +84,15 @@
 	            <div class="controls">
 	              <% for role in User::ROLES %>
 				      <%= check_box_tag "user[roles][]", role, @user.roles.include?(role) %>
-				      <%= role.humanize %><br />
+				       <% if (role.humanize == 'Sadmin') %>
+					<%= label = 'Суперадминистратор' %><br>
+					<% end %>
+				<% if (role.humanize == 'Admin') %>
+				<%= label = 'Администратор' %><br>
+				<% end %>
+				<% if (role.humanize == 'Worker') %>
+				<%= label = 'Диспетчер' %><br>
+					 <% end %>
 				    <% end %>
 				    <%= hidden_field_tag "user[roles][]", "" %>
 	            </div>
@@ -115,7 +123,7 @@
 	          <div class="form-actions">
 				 <%= f.submit "Сохранить", :class => "btn btn-primary" %>
 				 <%= link_to 'Назад', users_path, :class => "btn" %>
-				 <%= link_to 'Показать', @user, :class => "btn btn-info" %>
+				<!--  <%= link_to 'Показать', @user, :class => "btn btn-info" %> -->
 	          </div>
 	        </fieldset>
 	     <% end %>

@@ -1,0 +1,17 @@
+ <% if @gradesJs %>
+<h2>Отзывы</h2>
+<% @gradesJs.grades.each do |grade| %>
+  <p>
+    <strong>Commenter:</strong>
+    <%= grade.mark %>
+  </p>
+ 
+  <p>
+    <strong>Comment:</strong>
+    <%= grade.more %>
+  </p>
+<% end %>
+
+<% else %>
+
+<%  end %>

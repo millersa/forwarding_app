@@ -1,89 +1,70 @@
  #coding: utf-8
 class DriversController < ApplicationController
 
-  before_filter :signed_in_user
-  load_and_authorize_resource
+  before_filter :signed_in_user #перед загрузкой срабатывает функция signed_in_user . Если пользватель не авторизован, то перенаправляет на страницу авторизации
+  load_and_authorize_resource  #права доступа
  
-  def index
+  def index #список водителей
     @search = Driver.search(params[:search])
-    #@products = @search.all
     @drivers =  @search.page(params[:page]).per_page(7)
     @markaSpisok = Marka.order('id ASC').all
     @raztentovka_checkbox = Raztentovka.order('id ASC').all
-    @title = 'Список водителей'
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @drivers }
-    end
+    @title = 'Список водителей' #заголовок страницы
   end
 
-  # GET /drivers/1
-  # GET /drivers/1.json
   # def show
   #   @title = 'Просмотр водителя'
-  #   respond_to do |format|
-  #     format.html # show.html.erb
-  #     format.json { render json: @driver }
-  #   end
+
   # end
 
-  # GET /drivers/new
-  # GET /drivers/new.json
   def new
- 
-    #params[:driver][:rastentovka_ids] ||= []
-    #@marka_select = Marka.order('id ASC').all
-    #@raztentovka_checkbox = Raztentovka.order('id ASC').all
   
   end
 
-  # GET /drivers/1/edit
+
   def edit
-   
-    @marka_select = Marka.order('id ASC').all
-     @raztentovka_checkbox = Raztentovka.order('id ASC').all
-     
-    @title = 'Редактирование водителя'
+    @marka_select = Marka.order('id ASC').all # выборка из БД всех марок
+    @raztentovka_checkbox = Raztentovka.order('id ASC').all    # выборка из БД всех растентовок
+    @title = 'Редактирование водителя' #заголовок страницы
   end
 
-
-  def create
-
-      if @driver.save
+  def create # функция добавление нового водителя
+      if @driver.save # Сохраняем водителя
         flash[:success] = 'Водитель был успешно добавлен.'
-        redirect_to drivers_path
+        redirect_to drivers_path  #перенаправляем на список водителей
       else
-       render 'new'
+       render 'new' #обновляем страницу
     end
   end
 
-  # PUT /drivers/1
-  # PUT /drivers/1.json
-  def update
-    
+  def update  #функция редактирование водителя  
       if @driver.update_attributes(params[:driver])
         flash[:success] = 'Водитель был успешно обновлен.'
-        redirect_to drivers_path
+        redirect_to drivers_path  #перенаправляем на список водителей
       else
-       render 'edit'
+       render 'edit' #обновляем страницу
     end
   end
 
-  # DELETE /drivers/1
-  # DELETE /drivers/1.json
-  def destroy
-    authorize! :destroy, @user
-    @driver.destroy
-
-    respond_to do |format|
-      format.html { redirect_to drivers_url }
-      format.json { head :no_content }
-    end
+  def destroy # функция удаления водителя
+    authorize! :destroy, @user # проверяем права пользователя
+    @driver.destroy # удаляем
   end
 
-def updateShow
-  @driversJs = Driver.where('id=?', "#{params[:id]}")
-  render :partial => "update_show", :locals => { :driversJs =>  @driversJs }
+def updateShow # функция просмотра выбранного водителя
+  @driversJs = Driver.where('id=?', "#{params[:id]}") # выборка с БД где id водителя равно id палученного
+  render :partial => "update_show", :locals => { :driversJs =>  @driversJs }  #Это отрендерит файл _update_show.html.erb с переменными  @driversJs
+end 
 end
+ 
+def updateDialog # функция добавлеие отзыва
+  @driverJs = Driver.where('id=?', "#{params[:dialod_id]}").first
+  render :partial => "update_dialog", :locals => { :driverJs =>  @driverJs }
+end
+
+# def updateGrade # функция показа отзывов
+#   @gradesJs = Driver.where('id=?', "#{params[:dial_id]}").first
+#   render :partial => "grades_show", :locals => { :gradesJs =>  @gradesJs } #Это отрендерит файл _grades_show.html.erb с переменными  @gradesJs
+# end 
 
 end

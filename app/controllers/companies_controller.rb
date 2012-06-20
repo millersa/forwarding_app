@@ -1,98 +1,51 @@
 #coding: utf-8
 class CompaniesController < ApplicationController
-  before_filter :signed_in_user
-load_and_authorize_resource
-  # GET /companies
-  # GET /companies.json
-  def index
-    #@companies = Company.paginate(page: params[:page])
-    @companies = Company.where("user_id=?", current_user).page(params[:page]).per_page(10)
+  before_filter :signed_in_user #перед загрузкой срабатывает функция signed_in_user . Если пользватель не авторизован, то перенаправляет на страницу авторизации
+  load_and_authorize_resource #права доступа
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @companies }
-    end
+  def index #список компаний
+    @search = Company.search(params[:search]) #поиск
+    @companies = @search.where("user_id=?", current_user).page(params[:page]).per_page(10) #вывод списка компаний для текущего пользоваля. по 10 компаний на странице
   end
 
-  # GET /companies/1
-  # GET /companies/1.json
   # def show
    
-
-  #   respond_to do |format|
-  #     format.html # show.html.erb
-  #     format.json { render json: @company }
-  #   end
   # end
 
-  # GET /companies/new
-  # GET /companies/new.json
   def new
-    
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @company }
+  end
+
+  def edit    
+  end
+
+  def create # функция добавление новой компании
+     @company = current_user.companies.build(params[:company]) #
+      if @company.save #если компания сохранена
+        flash[:success] = 'Компания была успешно добавлена.' #если успешно, то выводим флеш сообщение
+        redirect_to companies_path  #перенаправляем на список компаний
+      else #иначе
+      render 'new' #обновляем страницу
     end
   end
 
-  # GET /companies/1/edit
-  def edit
-    
-  end
-
-  # POST /companies
-  # POST /companies.json
-  def create
-    #@company = Company.new(params[:company])
-     @company = current_user.companies.build(params[:company])
-    #respond_to do |format|
-      if @company.save
-        #format.html { redirect_to @company, notice: 'Компания была успешно добавлена.' }
-        #format.json { render json: @company, status: :created, location: @company }
-        flash[:success] = 'Компания была успешно добавлена.'
-        redirect_to companies_path
-      else
-        #format.html { render action: "new" }
-        #format.json { render json: @company.errors, status: :unprocessable_entity }
-      #end
-      render 'new'
+  def update #функция редактирование компании
+    @company = Company.find(params[:id]) #получаем id компании
+      if @company.update_attributes(params[:company]) # обновляем данные в базе данных
+        flash[:success] = 'Компания была успешно обновлена.' # если успешно, то выводим флеш сообщение
+        redirect_to companies_path #перенаправляем на список компаний
+      else #иначе
+      render 'edit' #обновляем страницу
     end
   end
 
-  # PUT /companies/1
-  # PUT /companies/1.json
-  def update
-    @company = Company.find(params[:id])
-
-    #respond_to do |format|
-      if @company.update_attributes(params[:company])
-       # format.html { redirect_to @company, notice: 'Компания была успешно обновлена.' }
-        #format.json { head :no_content }
-        flash[:success] = 'Компания была успешно обновлена.'
-        redirect_to companies_path
-      else
-       # format.html { render action: "edit" }
-        #format.json { render json: @company.errors, status: :unprocessable_entity }
-      #end
-      render 'edit'
-    end
+  def destroy # функция удаления компании
+    authorize! :destroy, @user # проверяем права пользователя
+    @company.destroy #удаляем компанию
   end
 
-  # DELETE /companies/1
-  # DELETE /companies/1.json
-  def destroy
-    authorize! :destroy, @user
-    @company.destroy
-
-    respond_to do |format|
-      format.html { redirect_to companies_url }
-      format.json { head :no_content }
-    end
+  def updateShow #функция ппросмотра компаний
+    @companiesJs = Company.where('id=?', "#{params[:id]}") # делаем выборку из базы данных, где id компании равно полученной переменной
+    render :partial => "update_show", :locals => { :companiesJs =>  @companiesJs } #передача параметров
   end
-
-  def updateShow
-  @companiesJs = Company.where('id=?', "#{params[:id]}")
-  render :partial => "update_show", :locals => { :companiesJs =>  @companiesJs }
-end
 
 end

@@ -19,6 +19,20 @@
   <%= @company.gruz %>
 </p>
 
+<h2>Grades</h2>
+<% @company.grades.each do |grade| %>
+  <p>
+    <strong>Commenter:</strong>
+    <%= grade.mark %>
+  </p>
+ 
+  <p>
+    <strong>Comment:</strong>
+    <%= grade.more %>
+  </p>
+<% end %>
+ 
+
 
 <%= link_to 'Редактировать', edit_company_path(@company) %> |
 <%= link_to 'Назад', companies_path %>

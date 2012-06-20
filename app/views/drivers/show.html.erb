@@ -91,6 +91,42 @@
 
 </p>
 
-
+<h2>Grades</h2>
+<% @driver.grades.each do |grade| %>
+  <p>
+    <strong>Commenter:</strong>
+    <%= grade.mark %>
+  </p>
+ 
+  <p>
+    <strong>Comment:</strong>
+    <%= grade.more %>
+  </p>
+<% end %>
+ <%= form_for [@driver, @driver.grades.build], :html => {:class => "form-horizontal"} do |f| %>
+           
+             <div class="control-group">
+        
+           <div class="controls">
+                  <%= f.radio_button :mark, true %> 
+                   <%= label :mark_p, 'Положительный', :class => "radio inline" %><br>
+                   <%= f.radio_button :mark, false %> 
+                   <%= label :mark_o, 'Отрицательный', :class => "radio inline" %>
+                
+             </div></div>
+            <div class="control-group">
+              <%= f.label :more, "Подробнее", :class => "control-label" %>
+              <div class="controls">
+              <%= f.text_area :more, :class => "span3", :rows => "4" %>
+              </div>
+            </div>
+           
+           
+       
+      </div>
+      <div class="modal-footer">
+      <a href="#" class="btn" data-dismiss="modal">Отменить</a>
+       <%= f.submit "Сохранить", :class => "btn btn-primary" %>
+          <% end %>
 <%= link_to 'Редактировать', edit_driver_path(@driver) %> |
 <%= link_to 'Список водителей', drivers_path %>

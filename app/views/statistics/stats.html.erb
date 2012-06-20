@@ -5,49 +5,192 @@
               <li class="nav-header">Меню</li>
               <li><%= link_to "Общая", statistics_path %></li>
               <li class="active"><%= link_to "По направлениям(пользо-ли)", stats_path %></li>
-              <li><%= link_to "По направлениям(компании)", statistics_path %></li>
-              <li><a href="#">Link</a></li>
+              <li><%= link_to "По направлениям(компании)", company_stats_path %></li>
+              <!-- <li><%= link_to "Отзывы", grade_stats_path %></li> -->
             </ul>
           </div><!--/.well -->
         </div>
         <div class="span9">
+          <div class="well">
+            <center>
+                <h4>Общая статистика по стоимости направлениях</h4><br>
+              </center>
+            <ul class="unstyled">
+              <table>
+                <tr>
+                  <td>
+                <li>Запад</li>
+                
+                  <li>Заявок: <span class="badge"><%= @tendersCountWayZ %></span>  <span class="badge badge-warning"><% if !@tendersSumWayZ %> <% @tendersSumWayZ = 0  end %><%= @tendersSumWayZ %> руб.</span></li>
+                 
+              
+                </td>
+                <td>
+                <li>Восток</li>
+               
+                  <li>Заявок: <span class="badge"><%= @tendersCountWayV %></span>  <span class="badge badge-warning"><% if !@tendersSumWayV %> <% @tendersSumWayV = 0  end %><%= @tendersSumWayV %> руб.</span></li>
+                  
+               
+                </td>
+                  <td>
+                <li>Север</li>
+                
+                  <li>Заявок: <span class="badge"><%= @tendersCountWayS %></span>  <span class="badge badge-warning"><% if !@tendersSumWayS %> <% @tendersSumWayS = 0  end %><%= @tendersSumWayS %> руб.</span></li>
+                 
+               
+                </td>
+                  <td>
+                <li>Юг</li>
+                
+                  <li>Заявок: <span class="badge"><%= @tendersCountWayY %></span>  <span class="badge badge-warning"><% if !@tendersSumWayY %> <% @tendersSumWayY = 0  end %><%= @tendersSumWayY %> руб.</span></li>
+                 
+                
+              </td>
+                </tr>
+                </table>
+              <!-- <li>Заявок: <span class="badge"><%= @tendersCount %></span>  <span class="badge badge-warning"><%= @tendersSum  %> руб.</span></li>
+                <ul>
+                  <li>Текущие: <span class="badge"><%= @tendersDoCount %></span>  <span class="badge badge-warning"><%= @tendersDoSum %> руб.</span></li>
+                  <li>Выполненные: <span class="badge"><%= @tendersDoneCount %></span>  <span class="badge badge-warning"><%= @tendersDoneSum  %> руб.</span></li>
+                </ul> -->
+              
+            </ul>
 
-
-           
+             </div> 
+             <div class="row">
+                <div class="span4">
+                  <div class="well">
+                    <div class="pull-right">
+                      <div class="controls">
+                               <%= collection_select :filter, :user, @usersList, :id, :FIO, :prompt => 'Все пользователи' %>
+                            </div>
+                    </div>
+                    <div calss="pull-left">
+                      <a class="Mownperiod" href="#today">За сегодня</a><br>
+                      <a class="Mownperiod" href="#yesterday">За вчера</a><br>
+                      <a class="Mownperiod" href="#week">За неделю</a><br>
+                      <a class="Mownperiod" href="#month">За месяц</a><br>
+                      <a class="Mownperiod" href="#year">За год</a><br><br><br>
+                    </div>
+                  
+                    </div>  
+                  </div>
+                <div class="span5">
+                  <!-- <div class="well" id="update_stat_id">
+                         <%= render :partial => 'update_stats'  %>
+                    </div>  -->     
+                </div>
+              </div>
+            <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto">
+               <%= render :partial => 'update_stats_n'  %>
+            </div>   
         </div>
 
-      
-<script type="text/javascript">
-$(document).ready(function(){  
-    var line3 = [['Cup Holder Pinion Bob', 7], ['Generic Fog Lamp Marketing Gimmick', 9],
-    ['HDTV Receiver', 15], ['8 Track Control Module', 12],
-    ['SSPFM (Sealed Sludge Pump Fourier Modulator)', 3],
-    ['Transcender/Spice Rack', 6], ['Hair Spray Rear View Mirror Danger Indicator', 18]];
- 
-    var plot3 = $.jqplot('chart3', [line3], {
-      series:[{renderer:$.jqplot.BarRenderer}],
-      axes: {
-        xaxis: {
-          renderer: $.jqplot.CategoryAxisRenderer,
-          label: 'Warranty Concern',
-          labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
-          tickRenderer: $.jqplot.CanvasAxisTickRenderer,
-          tickOptions: {
-              angle: -30,
-              fontFamily: 'Courier New',
-              fontSize: '9pt'
-          }
-           
-        },
-        yaxis: {
-          label: 'Occurance',
-          labelRenderer: $.jqplot.CanvasAxisLabelRenderer
-        }
+      <script type="text/javascript">
+jQuery(function($) {
+
+  $("a.Mownperiod").live("click",function() {
+    
+    var user_id = $('#filter_user :selected').val();
+    if (!user_id){
+  user_id = "all"
+    } 
+    var period = $(this).attr('href').split('#');
+    //alert(user_id);
+    if (period && user_id) {
+     // var vesJs = $('#filter_ves :selected').text();
+   //alert(vesJs);
+    /*jQuery.post('/statistics/updatestats/' + period[1] + '&' + user_id, function(data){
+      // $('#filter_marka').removeAttr("disabled");
+        $("#update_stat_id").html(data);
+       // alert(data);
+    })*/
+        jQuery.post('/statistics/updatestatsdiagn/' + period[1] + '&' + user_id, function(data){
+      // $('#filter_marka').removeAttr("disabled");
+        $("#container").html(data);
+       // alert(data);
+    })
+    }
+    else {
+      // $('#filter_marka').attr("disabled", "disable");
+       //$('#filter_marka').empty();
       }
-    });
-     
-     
-});
+    return false;
+  
+  });
+
+
+}); //закрытие $
 
 </script>
+<script type="text/javascript">
+/*$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                type: 'column',
+                margin: [ 50, 50, 100, 80]
+            },
+            title: {
+                text: 'Стоимость заявок по направлениям'
+            },
+            xAxis: {
+                categories: [
+                    'Запад',
+                    'Восток',
+                    'Север',
+                    'Юг'
+          ],
+                labels: {
+                    rotation: -45,
+                    align: 'right',
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Стоимость (руб.)'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                formatter: function() {
+                    return '<b>'+ this.x +'</b><br/>'+
+                        'Стоимость: '+ Highcharts.numberFormat(this.y) +
+                        ' рублей';
+                }
+            },
+                series: [{
+                name: 'Стоимость',
+                data: [<% if !@tendersSumWayZ %> <% @tendersSumWayZ = 0  end %><%= @tendersSumWayZ %>, <% if !@tendersSumWayV %> <% @tendersSumWayV = 0  end %><%= @tendersSumWayV %>, <% if !@tendersSumWayS %> <% @tendersSumWayS = 0  end %><%= @tendersSumWayS %>, <% if !@tendersSumWayY %> <% @tendersSumWayY = 0  end %><%= @tendersSumWayY %>],
+                dataLabels: {
+                    enabled: true,
+                    rotation: 0,
+                    color: '#000000',
+                    align: 'right',
+                    x: -25,
+                    y: -5,
+                    formatter: function() {
+                        return this.y;
+                    },
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }]
+        });
+    });
+    
+});*/
+
+    </script>
 </div>

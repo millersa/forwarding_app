@@ -1,4 +1,8 @@
  <div class="row">
+      <%= form_tag users_path, :method => 'get', :class=>"well form-search" do %>
+    <%= text_field_tag :search, params[:search], :class=>"input-medium search-query" %>
+    <%= submit_tag "Найти", :class => "btn" %>
+    <% end %>
   <h3>Список сотрудников</h3>
     <div class="span6">
 <% if !@users.blank? %>
@@ -11,7 +15,6 @@
         <th>Фамилия</th>
         <th>Имя</th>
         <th>Отчество</th>
-        <th>Должность</th>
         <!-- <th>Пол</th>
         <th>Телефон</th>
         <th>Дата рождения</th>
@@ -27,7 +30,6 @@
         <td><%= user.lastname %></td>
         <td><%= user.firstname %></td>
         <td><%= user.otchestvo %></td>
-        <td><%= user.doljnost %></td>
        <!--  <td><%= user.sex %></td>
         <td><%= user.phone %></td>
         <td><%= user.datebirth %></td>

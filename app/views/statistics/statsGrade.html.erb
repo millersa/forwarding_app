@@ -1,0 +1,138 @@
+<div class="row">
+	<div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Меню</li>
+              <li><%= link_to "Общая", statistics_path %></li>
+              <li><%= link_to "По направлениям(пользо-ли)", stats_path %></li>
+              <li><%= link_to "По направлениям(компании)", company_stats_path %></li>
+              <li class="active"><%= link_to "Отзывы", grade_stats_path %></li>
+            </ul>
+          </div><!--/.well -->
+        </div>
+        <div class="span9">
+			<div class="well">
+						<center>
+			    			<h4>Всего в базе отзывов</h4><br>
+			    		</center>
+						<ul class="unstyled">
+							
+							<li>Отзывов: <span class="badge"><%= @gradeall %></span></li>
+								<ul>
+									<li>Положительных:   <span class="badge badge-info"><%= @gradepo %> </span></li>
+									<li>Отрицательных:   <span class="badge badge-error"><%= @gradeot  %> </span></li>
+								</ul>
+							
+						</ul>
+
+			   		 </div>	
+			   		 <div class="row">
+	<div class="span4">
+		<div class="well">
+			<div class="pull-right">
+				<div class="controls">
+	               <%= collection_select :filter, :driver, @driversList, :id, :FIO, :prompt => 'Все водители' %>
+	            </div>
+			</div>
+			<div calss="pull-left">
+				<a class="Mownperiod" href="#today">За сегодня</a><br>
+				<a class="Mownperiod" href="#yesterday">За вчера</a><br>
+				<a class="Mownperiod" href="#week">За неделю</a><br>
+				<a class="Mownperiod" href="#month">За месяц</a><br>
+				<a class="Mownperiod" href="#year">За год</a><br><br><br>
+			</div>
+		
+   		</div>	
+   	</div>
+	<div class="span5">
+		<div class="well" id="update_stat_id">
+			     <%= render :partial => 'update_stats'  %>
+   		</div>   		
+	</div>
+</div>
+ <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div> 
+        </div>
+
+
+
+<script type="text/javascript">
+jQuery(function($) {
+
+  $("a.Mownperiod").live("click",function() {
+    
+    var user_id = $('#filter_user :selected').val();
+    if (!user_id){
+ 	user_id = "all"
+    } 
+    var period = $(this).attr('href').split('#');
+    //alert(user_id);
+    if (period && user_id) {
+     // var vesJs = $('#filter_ves :selected').text();
+   //alert(vesJs);
+    jQuery.post('/statistics/updatestats/' + period[1] + '&' + user_id, function(data){
+      // $('#filter_marka').removeAttr("disabled");
+        $("#update_stat_id").html(data);
+       // alert(data);
+    })
+    }
+    else {
+      // $('#filter_marka').attr("disabled", "disable");
+       //$('#filter_marka').empty();
+      }
+    return false;
+  
+  });
+
+
+}); //закрытие $
+
+</script>
+<script type="text/javascript">
+var chart;
+$(document).ready(function() {
+    chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'container',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Количество отзывов'
+        },
+        tooltip: {
+            formatter: function() {
+                return '<b>'+ this.point.name +'</b>: '+ this.y;
+            }
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                showInLegend: true,
+                dataLabels: {
+                    enabled: true,
+                    color: '#000000',
+                    connectorColor: '#000000',
+                    formatter: function() {
+                        return '<b>'+ this.point.name +'</b>: '+ this.y;
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: [
+                ['Положительных',   11],
+                ['Отрицательных',      6]        
+               
+            ]
+        }]
+    });
+});
+
+
+    </script>
+
+</div>

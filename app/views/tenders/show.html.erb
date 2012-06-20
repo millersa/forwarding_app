@@ -90,20 +90,75 @@ body {
     </table>-->
 
       <div class="Mownfloatleft">
-        <%= image_tag("logo.png", :alt => "Транс ДАК", :width => "364", :height => "100") %>
+        <%= image_tag("ТТН.jpg", :alt => "Экспресс-ТТН", :width => "264", :height => "60") %>
       </div>
       <div class="Mownfloatright">
       <table class="table table-bordblack table-condensed Mowntext">
         <tbody>
           <tr>
-          <td>22</td>
-          <td>Февраля</td>
-          <td>2012</td>
+         <td id="day"><select id="testd" class="span1">
+                <option>01</option>
+                <option>02</option>
+                <option>03</option>
+                <option>04</option>
+                <option>05</option>
+                <option>06</option>
+                <option>07</option>
+                <option>08</option>
+                <option>09</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+                <option>13</option>
+                <option>14</option>
+                <option>15</option>
+                <option>16</option>
+                <option>17</option>
+                <option>18</option>
+                <option>19</option>
+                <option>20</option>
+                <option>21</option>
+                <option>22</option>
+                <option>23</option>
+                <option>24</option>
+                <option>25</option>
+                <option>26</option>
+                <option>27</option>
+                <option>28</option>
+                <option>29</option>
+                <option>30</option>
+                <option>31</option>
+            </select></td>
+          <td id="month"><select id="testm" class="span1">
+                <option>Январь</option>
+                <option>Февраль</option>
+                <option>Март</option>
+                <option>Апрель</option>
+                <option>Май</option>
+                <option>Июнь</option>
+                <option>Июль</option>
+                <option>Август</option>
+                <option>Сентябрь</option>
+                <option>Октябрь</option>
+                <option>Ноябрь</option>
+                <option>Декабрь</option>
+            </select></td>
+          <td id="year"><select id="testy" class="span1">
+                <option>2009</option>
+                <option>2010</option>
+                <option>2011</option>
+                <option>2012</option>
+                <option>2013</option>
+                <option>2014</option>
+                <option>2015</option>
+                <option>2016</option>
+                <option>2017</option>
+            </select></td>
           </tr>
 
           <tr>
           <td colspan="2">Договор-Заявка №</td>
-          <td>12/10</td>
+          <td><%= @tender.nomer_tender %></td>
           </tr>
         </tbody>
       </table>
@@ -137,8 +192,8 @@ body {
 
           <tr>
           <td>Дата и время</td>
-          <td>27.02.2012г.</td>
-          <td>17-00</td>
+          <td><%= @tender.date_pogruzki.strftime("%d.%m.%Y") %>г.</td>
+          <td></td>
           </tr>
 
           <tr>
@@ -148,8 +203,12 @@ body {
 
           <tr>
           <td>Контактное лицо</td>
-          <td>Антон</td>
-          <td>89236201044</td>
+          <td>
+            <% User.where('id=?', @tender.licoP_id).each do |user| %>
+            <%= user.firstname %> 
+          </td>
+          <td><%= user.phone %> </td>
+          <% end %>
           </tr>
         </tbody>
     </table>
@@ -164,7 +223,7 @@ body {
 
           <tr>
           <td>Дата и время</td>
-          <td>27.02.2012г.</td>
+          <td><%= @tender.data_razgruzki.strftime("%d.%m.%Y") %>г.</td>
           <td>-</td>
           </tr>
 
@@ -175,8 +234,12 @@ body {
 
           <tr>
           <td>Контактное лицо</td>
-          <td>Антон</td>
-          <td>89236201044</td>
+          <td>          
+            <% User.where('id=?', @tender.licoR_id).each do |user| %>
+            <%= user.firstname %> 
+          </td>
+          <td><%= user.phone %> </td>
+          <% end %>
           </tr>
         </tbody>
     </table>
@@ -271,7 +334,7 @@ body {
           <tr>
           <td>Форма оплаты:</td>
           <td><%= @tender.form_oplata %></td>
-          <td>По ОТТН в теч 2-4 б/н</td>
+          <td><%= @tender.forma_oplati2 %></td>
           </tr>
         </tbody>
     </table>
@@ -361,8 +424,19 @@ body {
 
 <input type="button" class="MownprintBtn btn btn-info" onclick="print_page();" value="Напечатать страницу" />
 <script type="text/javascript">
-<!--
+
+//  $("#test").live("change",function() {
+// var month = $('#test :selected').text();
+
+//  });
 function print_page() {
+  //
+  var month = $('#testm :selected').text();
+  $("#month").text(month);
+  var day = $('#testd :selected').text();
+  $("#day").text(day);
+  var year = $('#testy :selected').text();
+  $("#year").text(year);
   $(".well").hide();//скрываем
   $("#Mownhide").hide();//верхняя панель управления
   $(".Mownprint").hide();//скрываем кнопки

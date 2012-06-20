@@ -1,23 +1,10 @@
 # coding: utf-8
 class TendersController < ApplicationController
-	before_filter :signed_in_user
-  load_and_authorize_resource
+	before_filter :signed_in_user #перед загрузкой срабатывает функция signed_in_user . Если пользватель не авторизован, то перенаправляет на страницу авторизации
+  load_and_authorize_resource  #права доступа
 
   def new
-  
     @update_objem = Driver.order('objem ASC').all
-    #@ves = Driver.select(:ves).uniq
-    #@update_marka = Driver.where(:ves => 10, :objem => 20)
-    #@company = current_user.companies.find_by_id(params[:id])
-    #@company = Company.find(:all)
-    #rescue
-    #flash.now[:error] = "У пользователя нет компаний."
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.js
-    end
-  
   end
 
   def create
@@ -35,7 +22,6 @@ end
     @tenders = Tender.where("status=? AND user_id=?", false, current_user).page(params[:page]).per_page(10)
     @admin_tenders = Tender.where("status=?", false).page(params[:page]).per_page(10)
   	@title = "Главная"
-    
   end
 
   def done
@@ -48,16 +34,15 @@ end
      @user = User.find_by_sql("SELECT firstname, username, phone FROM users WHERE id=#{@tender.user_id} LIMIT 1")
      @driver = Driver.find_by_sql("SELECT * FROM drivers WHERE id=#{@tender.driver_id} LIMIT 1")
      @title = "Просмотр заявки № #{@tender.id}"
+     @update_lico = User.all
 
   end
 
   def edit
-    
     @title = "Редактирование заявки № #{@tender.id}"
   end
 
   def update
-   
     if @tender.update_attributes(params[:tender])
       redirect_to tenders_path, notice: "Заявка успешно отредактирована."
     else

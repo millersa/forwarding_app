@@ -1,13 +1,15 @@
  <div class="row">
+<style type="text/css">
+.Mowngrade {
+text-align: center;
 
-    <%= form_for @search, :class=>"well form-search" do |f| %>
-    <p>
-      <%= f.text_field :name_contains, :class=>"input-medium search-query" %>
-    </p>
-    <div class="form-actions">
-     <%= f.submit "Найти", :class => "btn" %>
-     <% end %>
-  </div>
+}
+
+</style>
+    <%= form_tag drivers_path, :method => 'get', :class=>"well form-search" do %>
+    <%= text_field_tag :search, params[:search], :class=>"input-medium search-query" %>
+    <%= submit_tag "Найти", :class => "btn" %>
+    <% end %>
     <h3>Список водителей</h3>
   <div class="span6">
     <% if !@drivers.blank? %>
@@ -29,7 +31,7 @@
         <th>Гос № а/м</th>
         <th>Гос № п/п</th>
         <th>Паспортные данные</th> -->
-        <th colspan="3">Действия</th>
+        <th colspan="4">Действия</th>
       </tr>
 
     <% @drivers.each do |driver| %>
@@ -58,6 +60,7 @@
         <td><a id="jstr" class="btn-small btn-info" href="#<%= driver.id %>">Показать</a></td>
         <td><%= link_to 'Редактировать', edit_driver_path(driver), :class=>"btn-small btn-info" %></td>
         <td><%= link_to 'Удалить', driver,  :class=>"btn-small btn-danger",  confirm: 'Вы уверены?', method: :delete %></td>
+        <td><a id="jsdial" class="btn-small btn-info" data-toggle="modal" href="#myModal<%= driver.id %>">+/-</a></td>
       </tr>
           <% end %>
         </tbody>
@@ -82,8 +85,65 @@
          <%= render :partial => 'update_show' %>
       </div>
   </div>
+
+    <div class="modal hide" id="myModal">
+      <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">×</button>
+      <h3>Добавить отзыв</h3>
+      </div>
+      <div class="modal-body">
+        <div id="update_dialog_id">
+         <%= render :partial => 'update_dialog' %>  <!-- форма создание отзыва -->
+       </div>
+      </div>
+    </div>
+        <div class="modal hide" id="myModal2">
+      <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">×</button>
+      <h3>Отзывы</h3>
+      </div>
+      <div class="modal-body">
+        <div id="update_dial_id">
+         <%= render :partial => 'grades_show' %>
+       </div>
+      </div>
+    </div>
 <script type="text/javascript">
  jQuery(function($) {
+  $('#myModal').modal('hide');
+     $("#jsdial").live("click",function() {
+      var dial_id = $(this).attr('href').split('#myModal');
+     // alert(dialod_id[1]);
+      if (dial_id) {
+        jQuery.post('/drivers/update_dialog/' + dial_id[1], function(data){ //пост запрос
+         $('#update_dialog_id').html(data);
+          $('#myModal').modal('show');
+        })
+      }
+    else
+    {
+
+    }
+   return false;
+   });
+
+     $('#myModal2').modal('hide');
+     $("#jsdialo").live("click",function() {
+      var dialod_id = $(this).attr('href').split('#myModal2');
+     // alert(dialod_id[1]);
+      if (dialod_id) {
+        jQuery.post('/drivers/grades_show/' + dialod_id[1], function(data){
+         $('#update_dial_id').html(data);
+          $('#myModal2').modal('show');
+        })
+      }
+    else
+    {
+
+    }
+   return false;
+   });
+
    $("#jstr").live("click",function() {
       var id = $(this).attr('href').split('#');
       //alert(id[1]);

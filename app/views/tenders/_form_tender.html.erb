@@ -67,7 +67,13 @@
 	             <%= f.label :date_pogruzki, "Дата и время", :class => "control-label" %>
 	            <div class="controls">           
 	              <%= f.text_field :date_pogruzki, :class => "span2", :placeholder => "22/02/2012" %>
-	              <%= f.text_field :vremy_pogruzki, :class => "span2", :placeholder => "17-00" %>
+	             <!--  <%= f.text_field :vremy_pogruzki, :class => "span2", :placeholder => "17-00" %> -->
+	            </div>
+	          </div>
+	          <div class="control-group">
+	             <%= f.label :licoP_id, "Контактное лицо", :class => "control-label" %>
+	            <div class="controls">
+	              <%= f.collection_select :licoP_id, User.all, :id, :lastname, :prompt => 'Выберите конт. лицо' %>
 	            </div>
 	          </div>
 	          <div class="control-group">
@@ -87,7 +93,13 @@
 	             <%= f.label :data_razgruzki, "Дата и время", :class => "control-label" %>
 	            <div class="controls">           
 	              <%= f.text_field :data_razgruzki, :class => "span2", :placeholder => "22/02/2012" %>
-	              <%= f.text_field :vremy_razgruzlki, :class => "span2", :placeholder => "17-00" %>
+	             <!--  <%= f.text_field :vremy_razgruzlki, :class => "span2", :placeholder => "17-00" %> -->
+	            </div>
+	          </div>
+	          <div class="control-group">
+	             <%= f.label :licoR_id, "Контактное лицо", :class => "control-label" %>
+	            <div class="controls">
+	              <%= f.collection_select :licoR_id, User.all, :id, :lastname, :prompt => 'Выберите конт. лицо' %>
 	            </div>
 	          </div>
 	          <div class="control-group">
@@ -113,6 +125,12 @@
 	             <%= f.label :forma_oplati2, "Форма оплаты", :class => "control-label" %>
 	            <div class="controls">           
 	              <%= f.text_field :forma_oplati2, :class => "span4", :placeholder => "По ОТТН в ткч 2-4 б/н" %>
+	            </div>
+	          </div>
+	          <div class="control-group">
+	             <%= f.label :way_id, "Направление", :class => "control-label" %>
+	            <div class="controls">
+	              <%= f.collection_select :way_id, Way.order('name ASC').all, :id, :name, :prompt => 'Выберите направление' %>
 	            </div>
 	          </div>
 	          <div class="control-group">

@@ -4,18 +4,14 @@ class Ability
   def initialize(user)
     user ||= User.new # guest user (not logged in)
 
-    if user.role? :sadmin
-      can :manage, :all
-    elsif user.role? :admin
-      can :read, :all
-    elsif user.role? :worker
-      can :manage, [Driver]
-      # manage products, assets he owns
-      #can [:update, :create], Company do |company|
-       #company.try(:owner) == user
-      #end
-      can :manage, [Tender]
-       can :manage, [Company]
+    if user.role? :sadmin #если пользователь суперадмин
+      can :manage, :all #может совершать все действия(удалять, просматривать, редактировать, удалять)
+    elsif user.role? :admin #если пользователь админ
+      can :read, :all # может только просматривать все
+    elsif user.role? :worker #если пользователь диспетчер
+      can :manage, [Driver] #может совершать все действия над "водителями" кроме удаления
+      can :manage, [Tender] #может совершать все действия над "заявками" кроме удаления
+      can :manage, [Company] #может совершать все действия над "компаниями" кроме удаления
     end
 
     # Define abilities for the passed in user here. For example:

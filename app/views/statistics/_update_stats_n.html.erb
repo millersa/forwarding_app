@@ -1,0 +1,105 @@
+<% if @update_statse.blank? && !@titleFor_stats.blank? %>
+<script type="text/javascript">
+var chart;
+$(document).ready(function() {
+  chart = new Highcharts.Chart({
+    chart: {
+      renderTo: 'container',
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false
+    },
+    title: {
+      text: 'Стоимость заявок по направлениям за <%= @titleFor_stats %>'
+    },
+    tooltip: {
+      formatter: function() {
+        return '<b>'+ this.point.name +'</b>: '+ this.y +' руб.';
+      }
+    },
+            plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                showInLegend: true,
+                dataLabels: {
+                    enabled: true,
+                    color: '#000000',
+                    connectorColor: '#000000',
+                    formatter: function() {
+                        return '<b>'+ this.point.name +'</b>: '+ this.y +' руб.';
+                    }
+                }
+            }
+        },
+    series: [{
+      type: 'pie',
+      name: 'Browser share',
+      data: [
+        ['Запад',   <%= @tendersSumjsZ %>],
+        ['Восток',       <%= @tendersSumjsV %>],
+        ['Север',       <%= @tendersSumjsS %>],
+        ['Юг',    <%= @tendersSumjsY %>]     
+      ]
+    }]
+  });
+});
+
+
+
+
+
+    </script>
+<% else %>
+	<%= @update_statse %><br>
+	<script type="text/javascript">
+var chart;
+$(document).ready(function() {
+  chart = new Highcharts.Chart({
+    chart: {
+      renderTo: 'container',
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false
+    },
+    title: {
+      text: 'Стоимость заявок по направлениям'
+    },
+    tooltip: {
+      formatter: function() {
+        return '<b>'+ this.point.name +'</b>: '+ this.y +' руб.';
+      }
+    },
+            plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                showInLegend: true,
+                dataLabels: {
+                    enabled: true,
+                    color: '#000000',
+                    connectorColor: '#000000',
+                    formatter: function() {
+                        return '<b>'+ this.point.name +'</b>: '+ this.y +' руб.';
+                    }
+                }
+            }
+        },
+    series: [{
+      type: 'pie',
+      name: 'Browser share',
+      data: [
+        ['Запад',   <%= @tendersSumWayZ %>],
+        ['Восток',       <%= @tendersSumWayV %>],
+        ['Север',       <%= @tendersSumWayS %>],
+        ['Юг',    <%= @tendersSumWayY %>]     
+      ]
+    }]
+  });
+});
+
+
+
+
+    </script>
+<% end %>

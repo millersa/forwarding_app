@@ -3,9 +3,15 @@ ForwardingApp::Application.routes.draw do
 
 
   resources :statistics
-  resources :drivers
+  
+  resources :drivers do
+    resources :grades
+  end
 
-  resources :companies
+
+  resources :companies do
+    resources :grades
+  end
 
 
   root :to => 'tenders#index'
@@ -19,7 +25,11 @@ ForwardingApp::Application.routes.draw do
    post 'tenders/updaterastentovka_checkbox/:objemJs&:vesJs&:markaJs&:tipkuzovaJs', :controller=>'tenders', :action => 'update_rastentovka_checkbox'
    post 'tenders/updatedriverdata/:objemJs&:vesJs&:markaJs&:tipkuzovaJs&:rastentovkaJs', :controller=>'tenders', :action => 'update_driver_data'
    post 'statistics/updatestats/:period&:user_id', :controller=>'statistics', :action => 'update_stats_period'
+   post 'statistics/updatestatsdiag/:period&:user_id', :controller=>'statistics', :action => 'update_stats_all'
+   post 'statistics/updatestatsdiagn/:period&:user_id', :controller=>'statistics', :action => 'update_stats_n'
    post 'drivers/update_data/:id', :controller=>'drivers', :action => 'updateShow'
+   post 'drivers/update_dialog/:dialod_id', :controller=>'drivers', :action => 'updateDialog'
+   post 'drivers/grades_show/:dial_id', :controller=>'drivers', :action => 'updateGrade'
    post 'users/update_data/:id', :controller=>'users', :action => 'updateShow'
    post 'companies/update_data/:id', :controller=>'companies', :action => 'updateShow'
    post 'tenders/update_data/:id', :controller=>'tenders', :action => 'updateShow'
@@ -30,6 +40,8 @@ ForwardingApp::Application.routes.draw do
 
   match '/adduser',  to: 'users#new'
   match '/stats',  to: 'statistics#stats'
+  match '/company_stats',  to: 'statistics#statsCompany'
+  match '/grade_stats',  to: 'statistics#statsGrade'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
   match '/newtender',  to: 'tenders#new'

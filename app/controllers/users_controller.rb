@@ -1,7 +1,7 @@
 # coding: utf-8
 class UsersController < ApplicationController
-  before_filter :signed_in_user
-load_and_authorize_resource
+  before_filter :signed_in_user #перед загрузкой срабатывает функция signed_in_user . Если пользватель не авторизован, то перенаправляет на страницу авторизации
+  load_and_authorize_resource  #права доступа
 
   def new
   	@title = "Добавление сотрудника"
@@ -9,14 +9,12 @@ load_and_authorize_resource
   	
   end
 
-  def show
-  	@title = "Данные сотрудника"
-    
-  end
+  # def show
+  # 	@title = "Данные сотрудника"
+  # end
 
 
-  def create
-   
+  def create  
     if @user.save
       flash[:success] = "Сотрудник был успешно добавлен."
       redirect_to users_path
@@ -27,50 +25,31 @@ load_and_authorize_resource
 end
 
   def index #Вывод всех сотрудников
-
+  @search = User.search(params[:search])
   	@title = "Список сотрудников"
-    @users = User.order("datework").page(params[:page]).per_page(7)
+    @users = @search.order("datework").page(params[:page]).per_page(7)
     respond_to do |format|
     format.html  # index.html.erb
     format.json  { render :json => @users }
    end
   end
 
-  def edit 
-    
+  def edit  
   	@title = "Редактирование сотрудника"
   	@legend = "Редактирование карточки сотрудника"
-  
   end
 
   def destroy #удаление
-  	
     flash[:success] = "Сотрудник удален."
   	@user.destroy
- 
-  	respond_to do |format|
-    format.html { redirect_to users_url }
-    format.json { head :no_content }
-  end
   end
 
 def update  #Обновление
- 
- 
-  #respond_to do |format|
     if @user.update_attributes(params[:user])
        flash[:success] = 'Карточка сотрудника была успешно обновлена.'
        redirect_to users_path
-       
-      #format.html  { redirect_to(@user,
-        #            :notice => 'Карточка сотрудника была успешно обновлена.') }
-      #format.json  { head :no_content }
     else
        render 'edit'
-      #format.html  { render :action => "edit" }
-      #format.json  { render :json => @user.errors,
-         #           :status => :unprocessable_entity }
-   # end
   end
 end
 

@@ -15,6 +15,32 @@
                <input name="fname" class="span2 uneditable-input" value="<%= driver.contacts %>" type="text">
               </div>
             </div>
+              <div class="control-group">
+              <label class="control-label">Частная</label>
+              <div class="controls">
+                <% if driver.ownership == true %>
+               <input name="ownership" class="span2 uneditable-input" checked type="checkbox">
+               <% else %>
+               <input name="ownership" class="span2 uneditable-input" type="checkbox">
+               <% end %>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+          <h4>Отзывы</h4><br>
+          <div class="control-group Mowngrade">
+    
+            <% if (driver.grades.count <= 0) %> <%= df = 'Отзывов нет' %> <% else %>
+          Всего: <span id="jsdial" class="badge badge-inverse"><%= driver.grades.count %></span><br><br>
+          
+             
+                  Положительных: <% if driver.grades.where('mark=?', true).count == 0 %><span class="badge"><%= driver.grades.where('mark=?', true).count %></span> <% else %> <span class="badge badge-info"><%= driver.grades.where('mark=?', true).count %></span> <% end %> | 
+                  Отрицательных: <% if driver.grades.where('mark=?', false).count == 0 %><span class="badge"><%= driver.grades.where('mark=?', false).count %></span> <% else %> <span class="badge badge-error"><%= driver.grades.where('mark=?', false).count %></span><% end %>
+               
+         
+           </div>
+           <% end %>
           </fieldset>
 
           <fieldset>
